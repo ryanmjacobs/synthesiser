@@ -6,7 +6,10 @@ module top(
     output mclk,
     output lrck,
     output reg sck,
-    output reg sdout
+    output reg sdout,
+
+    output [7:0] phase,
+    output [7:0] s
 );
 
 initial led <= 8'b10101010;
@@ -17,6 +20,13 @@ reg [7:0] data = 24'b0001_1000;
 
 clkdiv clkdiv(rst, clk, mclk, _);
 
+// sine wave table
+reg [7:0] phase = 0;
+reg	[6:0] sine [0:255];
+assign s = sine[phase];
+initial $readmemh("sine.hex", sine);
+
+// initial states
 initial begin
     lrck  <= 0;
     sck   <= 1;
@@ -25,8 +35,11 @@ end
 
 // reset position when we switch from
 // Left to Right (or vice versa)
-always @(lrck)
+always @(lrck) begin
+    phase <= phase + 1;
+    sdout <= sine[phase];
     pos <= 0;
+end
 
 always @(posedge mclk) begin
     sck <= 0;
