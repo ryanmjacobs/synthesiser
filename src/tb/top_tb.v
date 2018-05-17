@@ -24,7 +24,7 @@ initial begin
 end
 
 // finish after our first lrck flip
-//always @(negedge lrck) $finish;
+always @(posedge lrck) $finish;
 
 // 100 Mhz clock
 always #1 clk <= ~clk;
