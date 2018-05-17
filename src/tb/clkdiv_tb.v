@@ -15,7 +15,7 @@ end
 initial begin
     #5 rst = 1;
     #5 rst = 0;
-    #1000 $finish;
+    #5000 $finish;
 end
 always #1 clk <= ~clk;
 
