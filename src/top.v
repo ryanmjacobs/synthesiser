@@ -12,8 +12,8 @@ module top(
 initial led <= 8'b10101010;
 
 reg lrck;
-reg [3:0]  pos = 0;
-reg [7:0] data = 24'b1111_1111;
+reg [2:0]  pos = 0;
+reg [7:0] data = 24'b0001_1000;
 
 clkdiv clkdiv(rst, clk, mclk, _);
 
@@ -29,13 +29,12 @@ always @(lrck)
     pos <= 0;
 
 always @(posedge mclk) begin
-    if (pos == 8)
-        lrck <= ~lrck;
-    else
-        pos <= pos + 1;
-
     sck <= 0;
+    pos <= pos + 1;
     sdout <= (data >> pos);
+
+    if (pos == 7)
+        lrck <= ~lrck;
 end
 
 always @(negedge mclk)
