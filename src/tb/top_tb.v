@@ -18,7 +18,7 @@ initial begin
 end
 
 initial begin
-    #5 rst = 1;
+    #10 rst = 1;
     #5 rst = 0;
     #10000 $finish;
 end
