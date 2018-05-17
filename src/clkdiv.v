@@ -23,7 +23,7 @@ wire lrck; assign lrck = out_clk[1];
 // setup counter thresholds
 initial begin
     max[0] <= 2;
-    max[1] <= 2*768;
+    max[1] <= 768;
 end
 
 genvar i;
