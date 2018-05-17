@@ -12,8 +12,17 @@ reg out_clk [0:1];
 reg [63:0] cnt [0:1];
 reg [63:0] max [0:1];
 
-wire mclk;  assign mclk  = out_clk[0];
-wire lrclk; assign lrclk = out_clk[1];
+initial begin
+    out_clk[0] <= 0;
+    out_clk[1] <= 0;
+end
+
+//wire mclk;  assign mclk  = out_clk[0];
+//wire lrclk; assign lrclk = out_clk[1];
+wire mclk;
+wire lrclk;
+assign mclk = 0;
+assign lrclk = 1;
 
 // setup counter thresholds
 initial begin
@@ -23,26 +32,25 @@ end
 
 genvar i;
 generate
-    always @(posedge clk) begin
-        // reset
-        if (rst) begin
-            for (i = 0; i < 2; i=i+1) begin
+    for (i = 0; i < 2; i=i+1) begin
+        always @(posedge clk) begin
+            // reset
+            if (rst) begin
                 cnt[i] <= 0;
                 out_clk[i] <= 0;
+                cnt[0] <= 0;
+                out_clk[0] <= 0;
             end
-        end
 
-        // increment counter for each clock
-        /*
-        for (i = 0; i < 2; i=i+1) begin
+            // increment counter for each clock
+            /*
             if (cnt[i] >= max[i]) begin
                 cnt[i] <= 0;
                 out_clk[i] <= ~out_clk[i];
-            end else begin
+            end else
                 cnt[i] <= cnt[i] + 1
-            end
-        end
-        */
+            */
+       end
     end
 endgenerate
 
