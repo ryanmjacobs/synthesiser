@@ -15,8 +15,8 @@ module top(
 initial led <= 8'b10101010;
 
 reg lrck;
-reg [2:0]  pos = 0;
-reg [7:0] data = 24'b0001_1000;
+reg [3:0]  pos = 0;
+reg [15:0] data = 16'b0001_1000;
 
 clkdiv clkdiv(rst, clk, mclk, _);
 
@@ -37,16 +37,17 @@ end
 // Left to Right (or vice versa)
 always @(lrck) begin
     phase <= phase + 1;
-    sdout <= sine[phase];
+  //data <= sine[phase];
+    data <= 16'b1111_0000_0000_1100;
     pos <= 0;
 end
 
 always @(posedge mclk) begin
     sck <= 0;
     pos <= pos + 1;
-    sdout <= (data >> pos);
+    sdout <= (data >> ~pos);
 
-    if (pos == 7)
+    if (pos == 15)
         lrck <= ~lrck;
 end
 

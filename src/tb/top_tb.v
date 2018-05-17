@@ -24,7 +24,7 @@ end
 initial begin
     #2 rst = 1;
     #2 rst = 0;
-    #2e5 $finish;
+    #400 $finish;
 end
 
 // finish after our first lrck flip
