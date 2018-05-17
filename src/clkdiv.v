@@ -5,7 +5,7 @@ module clkdiv(
     input rst,
     input clk,   //      Input Clock : 100 Mhz expected
     output mclk, //     Master Clock : 12.2880 Mhz
-    output lrck  // Left-Right Clock : 48 Khz
+    output lrclk // Left-Right Clock : 48 Khz
 );
 
 reg out_clk [0:1];
