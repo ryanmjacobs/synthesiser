@@ -18,9 +18,9 @@ for freq in iter(freq_num):
 
 print("")
 for freq in iter(o):
-    err = o[freq]
+    rem = o[freq]
 
-    print("%1.3f Mhz => %0.2f error" % (freq, err))
+    print("%1.3f Mhz => %0.2f remainder" % (freq, rem))
 
 best = min(o, key=o.get)
-print("\nmin error: %0.3f => %0.2f error" %(best, o[best]))
+print("\nmin remainder: %0.3f => %0.2f remainder" %(best, o[best]))
