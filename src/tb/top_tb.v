@@ -9,17 +9,18 @@ wire mclk;
 wire lrck;
 wire sck;
 wire sdout;
-top top(rst, clk, led, mclk, lrck, sck, sdout);
+wire [2:0] pos;
+top top(rst, clk, led, mclk, lrck, sck, sdout, pos);
 
 initial begin
     $display("--- top tb ---");
     $dumpfile("top.vcd");
-    $dumpvars(0, led, mclk, lrck, sck, sdout);
+    $dumpvars(0, led, mclk, lrck, sck, sdout, pos);
 end
 
 initial begin
-    #10 rst = 1;
-    #5 rst = 0;
+    #2 rst = 1;
+    #2 rst = 0;
     #10000 $finish;
 end
 

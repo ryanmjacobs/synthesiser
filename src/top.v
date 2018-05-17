@@ -6,27 +6,41 @@ module top(
     output mclk,
     output lrck,
     output reg sck,
-    output reg sdout
+    output reg sdout,
+
+    output [2:0] pos
 );
 
 initial led <= 8'b10101010;
 
-reg [4:0]  pos = 0;
-reg [15:0] data = 24'b0000_0000_0000_0001;
+reg lrck;
+reg [2:0]  pos = 0;
+reg [7:0] data = 24'b1100_1100;
 
-clkdiv clkdiv(rst, clk, mclk, lrck);
+clkdiv clkdiv(rst, clk, mclk, _);
 
+initial begin
+    lrck  <= 0;
+    sck   <= 0;
+    sdout <= 0;
+end
+
+// reset position when we switch from
+// Left to Right (or vice versa)
 always @(lrck)
     pos <= 0;
 
 always @(posedge mclk) begin
-    pos <= (pos + 1) % 16;
-    sdout <= (data >> pos);
-    sck <= 1;
+    pos <= pos + 1;
+
+    sck <= 0;
+    sdout <= (~data >> pos);
+
+    if (pos == 7)
+        lrck <= ~lrck;
 end
 
-always @(negedge mclk) begin
-    sck <= 0;
-end
+always @(negedge mclk)
+    sck <= 1;
 
 endmodule
