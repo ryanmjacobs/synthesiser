@@ -6,9 +6,7 @@ module top(
     output mclk,
     output lrck,
     output reg sck,
-    output reg sdout,
-
-    output [3:0] pos
+    output reg sdout
 );
 
 initial led <= 8'b10101010;
