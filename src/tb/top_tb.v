@@ -20,11 +20,11 @@ end
 initial begin
     #2 rst = 1;
     #2 rst = 0;
-    #10000 $finish;
+    #200 $finish;
 end
 
 // finish after our first lrck flip
-always @(posedge lrck) $finish;
+//always @(posedge lrck) $finish;
 
 // 100 Mhz clock
 always #1 clk <= ~clk;
