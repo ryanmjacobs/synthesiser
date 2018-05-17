@@ -3,13 +3,13 @@ module clkdiv_tb;
 reg rst = 0;
 reg clk = 0;
 wire mclk;
-wire lrclk;
-clkdiv clkdiv(rst, clk, mclk, lrclk);
+wire lrck;
+clkdiv clkdiv(rst, clk, mclk, lrck);
 
 initial begin
     $display("--- clk tb ---");
     $dumpfile("clkdiv.vcd");
-    $dumpvars(0, rst, clk, mclk, lrclk);
+    $dumpvars(0, rst, clk, mclk, lrck);
 end
 
 initial begin

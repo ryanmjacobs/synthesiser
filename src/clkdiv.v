@@ -5,7 +5,7 @@ module clkdiv(
     input rst,
     input clk,   //      Input Clock : 100 Mhz expected
     output mclk, //     Master Clock : 12.2880 Mhz
-    output lrclk // Left-Right Clock : 48 Khz
+    output lrck  // Left-Right Clock : 48 Khz
 );
 
 reg out_clk [0:1];
@@ -17,17 +17,14 @@ initial begin
     out_clk[1] <= 0;
 end
 
-//wire mclk;  assign mclk  = out_clk[0];
-//wire lrclk; assign lrclk = out_clk[1];
-wire mclk;
-wire lrclk;
-assign mclk = 0;
-assign lrclk = 1;
+wire mclk; assign mclk = out_clk[0];
+wire lrck; assign lrck = out_clk[1];
 
 // setup counter thresholds
 initial begin
-    max[0] <= 65/2;
-    max[1] <= 100000000/2;
+    max[0] <= 2;
+  //max[1] <= 100000000/2;
+    max[1] <= 100000/2;
 end
 
 genvar i;
@@ -38,18 +35,15 @@ generate
             if (rst) begin
                 cnt[i] <= 0;
                 out_clk[i] <= 0;
-                cnt[0] <= 0;
-                out_clk[0] <= 0;
             end
 
             // increment counter for each clock
-            /*
-            if (cnt[i] >= max[i]) begin
+            if (cnt[i] < max[i]) begin
+                cnt[i] <= cnt[i] + 1;
+            end else begin
                 cnt[i] <= 0;
                 out_clk[i] <= ~out_clk[i];
-            end else
-                cnt[i] <= cnt[i] + 1
-            */
+            end
        end
     end
 endgenerate
