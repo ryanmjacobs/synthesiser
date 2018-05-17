@@ -2,29 +2,43 @@
 `timescale 10ns/10ns
 
 module clkdiv(
-    input clk,        //      Input Clock : 100 Mhz expected
-    output reg mclk,  //     Master Clock : 12.2880 Mhz
-    output reg lrck   // Left-Right Clock : 48 Khz
+    input rst,
+    input clk,   //      Input Clock : 100 Mhz expected
+    output mclk, //     Master Clock : 12.2880 Mhz
+    output lrck  // Left-Right Clock : 48 Khz
 );
 
-reg mclk = 0;
-reg lclk = 0;
-reg [63:0] mclk_cnt = 0;
-reg [63:0] lclk_cnt = 0;
+reg clk [0:1];
+reg [63:0] cnt [0:1];
+reg [63:0] max [0:1];
 
-always @(posedge clk) begin
-    mclk_cnt = mclk_cnt + 1;
-    lclk_cnt = lclk_cnt + 1;
-    
-    if (mclk_cnt >= 65/2) begin
-        mclk_cnt = 0;
-        mclk = ~mclk;
-    end
-    
-    if (lclk_cnt >= 100000000/2) begin
-        lclk_cnt = 0;
-        lclk = ~lclk;
-    end
+// setup counter thresholds
+initial begin
+    max[0] <= 65/2;
+    max[1] <= 100000000/2;
 end
+
+genvar i;
+generate
+    always @(posedge clk) begin
+        // reset
+        if (rst) begin
+            for (i = 0; i < 2; i=i+1) begin
+                clk[i] <= 0;
+                cnt[i] <= 0;
+            end
+        end
+
+        // increment counter for each clock
+        for (i = 0; i < 2; i=i+1) begin
+            if (cnt[i] >= max[i]) begin
+                cnt[i] <= 0;
+                clk[i] <= ~clk[i];
+            end else begin
+                cnt[i] <= cnt[i] + 1
+            end
+        end
+    end
+endgenerate
 
 endmodule
