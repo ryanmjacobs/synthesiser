@@ -13,7 +13,7 @@ initial led <= 8'b10101010;
 
 reg lrck;
 reg [3:0]  pos = 0;
-reg [7:0] data = 24'b1100_1100;
+reg [7:0] data = 24'b1111_1111;
 
 clkdiv clkdiv(rst, clk, mclk, _);
 
@@ -35,7 +35,7 @@ always @(posedge mclk) begin
         pos <= pos + 1;
 
     sck <= 0;
-    sdout <= (~data >> pos);
+    sdout <= (data >> pos);
 end
 
 always @(negedge mclk)
