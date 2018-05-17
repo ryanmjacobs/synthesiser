@@ -19,15 +19,16 @@ fi
 trap "rm -f tmp.vvp" EXIT
 
 modules="$1"
+cd src
 if [ "$modules" == "all" ]; then
     # all modules
-    for tb in src/tb/*_tb.v; do
-        iverilog -o tmp.vvp src/*.v "$tb" && vvp tmp.vvp
+    for tb in tb/*_tb.v; do
+        iverilog -o tmp.vvp *.v "$tb" && vvp tmp.vvp
     done
 else
     # input modules
     for module in "${modules[@]}"; do
-        fname="src/tb/${module}_tb.v"
+        fname="tb/${module}_tb.v"
 
         if ! [ -e "$fname" ]; then
             >&2 echo "error: module not found: $module"
@@ -35,6 +36,6 @@ else
             exit 1
         fi
 
-        iverilog -o tmp.vvp src/*.v "$fname" && vvp tmp.vvp
+        iverilog -o tmp.vvp *.v "$fname" && vvp tmp.vvp
     done
 fi
