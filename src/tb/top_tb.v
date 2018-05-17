@@ -9,7 +9,7 @@ wire mclk;
 wire lrck;
 wire sck;
 wire sdout;
-wire [2:0] pos;
+wire [3:0] pos;
 top top(rst, clk, led, mclk, lrck, sck, sdout, pos);
 
 initial begin
