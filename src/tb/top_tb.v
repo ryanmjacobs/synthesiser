@@ -17,7 +17,14 @@ initial begin
     $dumpvars(0, led, mclk, lrck, sck, sdout);
 end
 
-initial #10000 $finish;
+initial begin
+    #5 rst = 1;
+    #5 rst = 0;
+    #10000 $finish;
+end
+
+// finish after our first lrck flip
+//always @(negedge lrck) $finish;
 
 // 100 Mhz clock
 always #1 clk <= ~clk;

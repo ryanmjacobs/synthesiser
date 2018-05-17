@@ -12,11 +12,6 @@ reg out_clk [0:1];
 reg [63:0] cnt [0:1];
 reg [63:0] max [0:1];
 
-initial begin
-    out_clk[0] <= 0;
-    out_clk[1] <= 0;
-end
-
 wire mclk; assign mclk = out_clk[0];
 wire lrck; assign lrck = out_clk[1];
 

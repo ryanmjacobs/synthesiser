@@ -12,13 +12,13 @@ module top(
 initial led <= 8'b10101010;
 
 reg [4:0]  pos = 0;
-reg [23:0] data = 24'b1001_0000_1001_0000_1001_0000;
+reg [23:0] data = 24'b0000_0000_0000_0000_0000_0001;
 
 clkdiv clkdiv(rst, clk, mclk, lrck);
 
 always @(posedge mclk) begin
     pos <= (pos + 1) % 24;
-    sdout <= (~data >> pos) & 1;
+    sdout <= (data >> pos);
     sck <= 1;
 end
 
