@@ -4,16 +4,16 @@
 module clkdiv(
     input rst,
     input clk,   //      Input Clock : 100 Mhz expected
-    output mclk, //     Master Clock : 12.2880 Mhz
-    output lrck  // Left-Right Clock : 48 Khz
+    output mclk //     Master Clock : 12.2880 Mhz
+    //output lrck  // Left-Right Clock : 48 Khz
 );
 
 reg out_clk [0:1];
 reg [63:0] cnt [0:1];
 reg [63:0] max [0:1];
 
-wire mclk; assign mclk = out_clk[0];
-wire lrck; assign lrck = out_clk[1];
+assign mclk = out_clk[0];
+//assign lrck = out_clk[1];
 
 // setup counter thresholds
 initial begin

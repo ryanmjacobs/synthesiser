@@ -3,22 +3,28 @@ module top(
 	input clk,
     output reg [7:0] led,
 
-    output mclk,
-    output lrck,
-    output reg sck,
-    output reg sdout,
+    output i2s_mclk,
+    output reg i2s_lrck,
+    output i2s_sck,
+    output reg i2s_sdin,
+    output i2s_gnd,
+    output i2s_vcc,
 
     output [7:0] phase,
     output [7:0] s
 );
 
+// i2s power supply
+assign i2s_gnd = 0;
+assign i2s_vcc = 1;
+
 initial led <= 8'b10101010;
 
-reg lrck;
+//reg i2s_lrck;
 reg [3:0]  pos = 0;
 reg [15:0] data = 16'b0001_1000;
 
-clkdiv clkdiv(rst, clk, mclk, _);
+clkdiv clkdiv(rst, clk, i2s_mclk);
 
 // sine wave table
 reg [7:0] phase = 0;
@@ -28,31 +34,33 @@ initial $readmemh("sine.hex", sine);
 
 // initial states
 initial begin
-    lrck  <= 0;
-    sck   <= 1;
-    sdout <= 0;
+    i2s_lrck <= 0;
+    //i2s_sck  <= 1;
+    i2s_sdin <= 0;
 end
 
 // reset position when we switch from
 // Left to Right (or vice versa)
-always @(lrck) begin
+always @(i2s_lrck) begin
     phase <= phase + 1;
-    data <= sine[phase];
-    data <= sine[phase] + sine[phase] << 8;
-  //data <= 16'b1111_0000_0000_1100;
-    pos <= 0;
+  //data <= sine[phase];
+    data <= 16'b1111_0000_0000_1100;
 end
 
-always @(posedge mclk) begin
-    sck <= 0;
+assign i2s_sck = i2s_mclk;
+
+always @(posedge i2s_mclk) begin
+    //i2s_sck <= 0;
     pos <= pos + 1;
-    sdout <= (data >> ~pos);
+    i2s_sdin <= (data >> ~pos);
 
-    if (pos == 15)
-        lrck <= ~lrck;
+    if (pos == 15) begin
+        pos <= 0;
+        i2s_lrck <= ~i2s_lrck;
+    end
 end
 
-always @(negedge mclk)
-    sck <= 1;
+//always @(negedge i2s_mclk)
+//    i2s_sck <= 1;
 
 endmodule
