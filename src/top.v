@@ -37,8 +37,9 @@ end
 // Left to Right (or vice versa)
 always @(lrck) begin
     phase <= phase + 1;
-  //data <= sine[phase];
-    data <= 16'b1111_0000_0000_1100;
+    data <= sine[phase];
+    data <= sine[phase] + sine[phase] << 8;
+  //data <= 16'b1111_0000_0000_1100;
     pos <= 0;
 end
 
