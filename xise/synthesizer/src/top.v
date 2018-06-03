@@ -1,6 +1,7 @@
 module top(
     input rst,
 	input clk,
+  //output reg [7:0] led,
     output reg [7:0] led,
     input [7:0] sw,
 
@@ -16,5 +17,9 @@ inout [15:0] MemDB;
 
 ram ram_(clk, rst, write_enable, sw, MemDB, data_read,
     RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB, MemAdr);
+
+always @(*) begin
+    led <= data_read;
+end
 
 endmodule
