@@ -9,12 +9,12 @@ module clkdiv(
 );
 
 // counters
-reg [63:0] mclk_cnt;
-reg [63:0] lrck_cnt;
+reg [7:0] mclk_cnt;
+reg [7:0] lrck_cnt;
 
 // counter thresholds
 parameter mclk_max = 3;
-parameter lrck_max = 256;
+parameter lrck_max = 255;
 
 // mclk
 always @(posedge clk) begin
