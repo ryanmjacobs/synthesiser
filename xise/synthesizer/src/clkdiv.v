@@ -13,7 +13,7 @@ reg [63:0] mclk_cnt;
 reg [63:0] lrck_cnt;
 
 // counter thresholds
-parameter mclk_max = 4;
+parameter mclk_max = 3;
 parameter lrck_max = 256;
 
 // mclk
