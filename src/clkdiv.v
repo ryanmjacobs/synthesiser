@@ -3,48 +3,63 @@
 
 module clkdiv(
     input rst,
-    input clk,   //      Input Clock : 100 Mhz expected
-    output mclk, //     Master Clock : 12.5 Mhz
-    output lrck  // Left-Right Clock : 48 Khz
+    input clk,       //      Input Clock : 100 Mhz expected
+    output reg mclk, //     Master Clock : 12.5 Mhz
+    output reg lrck  // Left-Right Clock : 48 Khz
 );
 
-reg out_clk [0:1];
-reg [63:0] cnt [0:1];
-reg [63:0] max [0:1];
+// counters
+reg [63:0] mclk_cnt;
+reg [63:0] lrck_cnt;
 
-wire mclk; assign mclk = out_clk[0];
-wire lrck; assign lrck = out_clk[1];
+// counter thresholds
+parameter mclk_max = 4;
+parameter lrck_max = 256;
 
-// setup counter thresholds
-initial begin
-    max[0] <= 4;
-    max[1] <= 256;
+// mclk
+always @(posedge clk) begin
+    // reset
+    if (rst) begin
+        mclk <= 0;
+        mclk_cnt <= 0;
+    end
+
+    // increment counter
+    if (mclk_cnt < mclk_count) begin
+        mclk_cnt <= mclk_cnt + 1;
+    end else begin
+        mclk_cnt <= 0;
+
+        // create a pulse
+        if (mclk == 0)
+            mclk <= 1;
+        else
+            mclk <= 0;
+    end
 end
 
-genvar i;
-generate
-    for (i = 0; i < 2; i=i+1) begin
-        always @(posedge clk) begin
-            // reset
-            if (rst) begin
-                cnt[i] <= 0;
-                out_clk[i] <= 0;
-            end
-
-            // increment counter for each clock
-            if (cnt[i] < max[i]) begin
-                cnt[i] <= cnt[i] + 1;
-            end else begin
-                cnt[i] <= 0;
-
-                // create a pulse
-                if (out_clk[i] == 0)
-                    out_clk[i] <= 1;
-                else
-                    out_clk[i] <= 0;
-            end
-       end
+// lrck
+always @(posedge clk) begin
+    // reset
+    if (rst) begin
+        lrck <= 0;
+        lrck_cnt <= 0;
     end
-endgenerate
+
+    // increment counter on mclk
+    if (mclk) begin
+        if (lrck_cnt < lrck_count) begin
+            lrck_cnt <= lrck_cnt + 1;
+        end else begin
+            lrck_cnt <= 0;
+
+            // create a pulse
+            if (lrck == 0)
+                lrck <= 1;
+            else
+                lrck <= 0;
+        end
+    end
+end
 
 endmodule
