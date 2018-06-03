@@ -29,7 +29,7 @@ module ram(
         CS <= EN;
     end
 
-    // advance audio slices at 48khz
+    // advance audio slices at ~32khz
     wire ap;
     audio_pulse _audio_pulse(clk, ap);
     always @(posedge clk) begin
