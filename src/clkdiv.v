@@ -24,7 +24,7 @@ always @(posedge clk) begin
         mclk_cnt <= 0;
     end else begin
         // increment counter
-        if (mclk_cnt < mclk_count) begin
+        if (mclk_cnt < mclk_max) begin
             mclk_cnt <= mclk_cnt + 1;
         end else begin
             mclk_cnt <= 0;
@@ -47,7 +47,7 @@ always @(posedge clk) begin
     end else begin
         // increment counter on mclk
         if (mclk) begin
-            if (lrck_cnt < lrck_count) begin
+            if (lrck_cnt < lrck_max) begin
                 lrck_cnt <= lrck_cnt + 1;
             end else begin
                 lrck_cnt <= 0;
