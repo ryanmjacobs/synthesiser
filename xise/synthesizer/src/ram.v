@@ -29,27 +29,35 @@ module ram(
         CS <= EN;
     end
 
+    // advance audio slices at 48khz
+    wire ap;
+    audio_pulse _audio_pulse(clk, ap);
+    always @(posedge clk) begin
+        if (ap)
+            addr <= addr + 1'b1;
+    end
+
     async_fsm async(clk, WR, CS, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB);
 endmodule
 
 // Generates a pulse at a rate of 31.5 KHz for the audio loop
-module audio_pulse(input clk_in, output reg clk_out);
+module audio_pulse(input clk_in, output reg pulse_out);
     reg [11:0] count = 0;
 
     always @(posedge clk_in) begin
         if (count == 3199) begin
-            clk_out <= 1;
+            pulse_out <= 1;
             count <= count + 1'b1;
         end else begin
             count <= 0;
-            clk_out <= 0;
+            pulse_out <= 0;
         end
     end
 endmodule
 
 module async_fsm(
-    input clk, WR, CS, output RamAdv,
-    RamClk, RamCS, MemOE, MemWR, RamLB, RamUB);
+    input clk, WR, CS,
+    output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB);
 
     localparam
       READY = 2'b00,
