@@ -12,7 +12,7 @@ module top(
     output RamCS,
     output RamUB,
     output RamLB,
-    output RamAdv,
+    output MemAdv,
     output RamCRE,
     output [26:1] MemAdr
 );
@@ -35,7 +35,7 @@ end
 wire [22:0] address;
 MemoryCtrl memory(
     .Clk(MemClk), .Reset(rst), .MemAdr(MemAdr), .MemOE(MemOE), .MemWR(MemWR),
-    .RamCS(RamCS), .RamUB(RamUB), .RamLB(RamLB), .RamAdv(RamAdv), .RamCRE(RamCRE),
+    .RamCS(RamCS), .RamUB(RamUB), .RamLB(RamLB), .MemAdv(MemAdv), .RamCRE(RamCRE),
     .writeData(writeData), .AddressIn(address)
 );
 

@@ -1,38 +1,51 @@
 module MemoryCtrl(
-  Clk, Reset, MemAdr, MemOE, MemWR,
-  RamCS, RamUB, RamLB, RamAdv, RamCRE, writeData, AddressIn
+  // inputs
+  Clk, Reset,
+
+  // ram output reg
+  MemOE, MemWR, MemAdv, //MemWait, MemClk,
+  RamCS, RamCRE, RamUB, RamLB,
+  MemAdr,
+
+  // outputs
+  writeData, AddressIn
 );
 
- input Clk, Reset;
- input [22:0] AddressIn;
- output MemOE, MemWR, RamCS, RamUB, RamLB, RamAdv, RamCRE;
- output [26:1] MemAdr;
- output writeData;
+// inputs
+input Clk, Reset;
 
- reg _MemOE, _MemWR, _RamCS, _RamUB, _RamLB, _RamAdv, _RamCRE;
- reg [22:0] address;
+// ram output registers
+output MemOE, MemWR, RamCS, RamUB, RamLB, MemAdv, RamCRE;
 
- reg [6:0] state;
- reg [6:0] clock_counter;
- reg writeData;
- 
- assign MemAdr = {4'b0, address};
- assign MemOE = _MemOE;
- assign MemWR = _MemWR;
- assign RamCS = _RamCS;
- assign RamUB = _RamUB;
- assign RamLB = _RamLB;
- assign RamAdv = _RamAdv;
- assign RamCRE = _RamCRE;
+input [22:0] AddressIn;
+output [26:1] MemAdr;
+output writeData;
+
+reg [22:0] address;
+reg _MemOE, _MemWR, _RamCS, _RamUB, _RamLB, _MemAdv, _RamCRE;
+
+// state
+reg [6:0] state;
+reg [6:0] clock_counter;
+reg writeData;
+
+assign MemAdr = {4'b0, address};
+assign MemOE = _MemOE;
+assign MemWR = _MemWR;
+assign RamCS = _RamCS;
+assign RamUB = _RamUB;
+assign RamLB = _RamLB;
+assign MemAdv = _MemAdv;
+assign RamCRE = _RamCRE;
  
 localparam
- CONFIGMEM = 7'b0000001,
- CONFIGMEM2 = 7'b0000010,
- INIT = 7'b0000100,
- PREPARE_READ = 7'b0001000,
- WAIT = 7'b0010000,
- READ_DATA = 7'b0100000,
- IDLE = 7'b1000000;
+  CONFIGMEM  = 7'b0000001,
+  CONFIGMEM2 = 7'b0000010,
+        INIT = 7'b0000100,
+PREPARE_READ = 7'b0001000,
+        WAIT = 7'b0010000,
+   READ_DATA = 7'b0100000,
+        IDLE = 7'b1000000;
 
 always @ (posedge Clk, posedge Reset)
  begin : State_Machine
@@ -48,7 +61,7 @@ always @ (posedge Clk, posedge Reset)
       begin
        address <= 23'b000_10_00_0_1_011_1_0_0_0_0_01_1_111;
        _RamCRE <= 1;
-       _RamAdv <= 0;
+       _MemAdv <= 0;
        _RamCS <= 0;
        _MemWR <= 0;
        _MemOE <= 1;
@@ -60,7 +73,7 @@ always @ (posedge Clk, posedge Reset)
      CONFIGMEM2:
       begin
        _RamCRE <= 1;
-       _RamAdv <= 1;
+       _MemAdv <= 1;
        _RamCS <= 0;
        _MemWR <= 1;
        
@@ -80,7 +93,7 @@ always @ (posedge Clk, posedge Reset)
      PREPARE_READ:
       begin
        _RamCRE <= 0;
-       _RamAdv <= 0;
+       _MemAdv <= 0;
        _RamCS <= 0;
        _MemWR <= 1;
        _MemOE <= 1;
@@ -91,7 +104,7 @@ always @ (posedge Clk, posedge Reset)
       end
      WAIT:
       begin
-       _RamAdv <= 1;
+       _MemAdv <= 1;
 
        if(clock_counter == 7'b0000011)
         begin
@@ -116,7 +129,7 @@ always @ (posedge Clk, posedge Reset)
      IDLE:
       begin
        _RamCRE <= 0;
-       _RamAdv <= 1;
+       _MemAdv <= 1;
        _RamCS <= 1;
        _MemWR <= 1;
        _MemOE <= 1;
