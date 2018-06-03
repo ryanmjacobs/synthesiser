@@ -1,0 +1,44 @@
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/test/synthesizer.xst" -ofn "/home/ise/VirtualBox_Box/test/synthesizer.syr" 
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/test/synthesizer.xst" -ofn "/home/ise/VirtualBox_Box/test/synthesizer.syr" 
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/test/synthesizer.xst" -ofn "/home/ise/VirtualBox_Box/test/synthesizer.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc src/nexys3.ucf -p xa6slx4-csg225-3 synthesizer.ngc synthesizer.ngd  
+map -intstyle ise -p xa6slx4-csg225-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o synthesizer_map.ncd synthesizer.ngd synthesizer.pcf 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc src/nexys3.ucf -p xa6slx4-csg225-3 synthesizer.ngc synthesizer.ngd  
+map -intstyle ise -p xa6slx4-csg225-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o synthesizer_map.ncd synthesizer.ngd synthesizer.pcf 
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/test/synthesizer.xst" -ofn "/home/ise/VirtualBox_Box/test/synthesizer.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc src/nexys3.ucf -p xc6slx16-csg324-3 synthesizer.ngc synthesizer.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o synthesizer_map.ncd synthesizer.ngd synthesizer.pcf 
+par -w -intstyle ise -ol high -mt off synthesizer_map.ncd synthesizer.ncd synthesizer.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml synthesizer.twx synthesizer.ncd -o synthesizer.twr synthesizer.pcf 
+bitgen -intstyle ise -f synthesizer.ut synthesizer.ncd 
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/test/synthesizer.xst" -ofn "/home/ise/VirtualBox_Box/test/synthesizer.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc src/nexys3.ucf -p xc6slx16-csg324-3 synthesizer.ngc synthesizer.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o synthesizer_map.ncd synthesizer.ngd synthesizer.pcf 
+par -w -intstyle ise -ol high -mt off synthesizer_map.ncd synthesizer.ncd synthesizer.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml synthesizer.twx synthesizer.ncd -o synthesizer.twr synthesizer.pcf 
+bitgen -intstyle ise -f synthesizer.ut synthesizer.ncd 
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/test/synthesizer.xst" -ofn "/home/ise/VirtualBox_Box/test/synthesizer.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc src/nexys3.ucf -p xc6slx16-csg324-3 synthesizer.ngc synthesizer.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o synthesizer_map.ncd synthesizer.ngd synthesizer.pcf 
+par -w -intstyle ise -ol high -mt off synthesizer_map.ncd synthesizer.ncd synthesizer.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml synthesizer.twx synthesizer.ncd -o synthesizer.twr synthesizer.pcf 
+bitgen -intstyle ise -f synthesizer.ut synthesizer.ncd 
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/test/synthesizer.xst" -ofn "/home/ise/VirtualBox_Box/test/synthesizer.syr" 
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/test/synthesizer.xst" -ofn "/home/ise/VirtualBox_Box/test/synthesizer.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc src/nexys3.ucf -p xc6slx16-csg324-3 synthesizer.ngc synthesizer.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o synthesizer_map.ncd synthesizer.ngd synthesizer.pcf 
+par -w -intstyle ise -ol high -mt off synthesizer_map.ncd synthesizer.ncd synthesizer.pcf 
+bitgen -intstyle ise -f synthesizer.ut synthesizer.ncd 
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/test/synthesizer.xst" -ofn "/home/ise/VirtualBox_Box/test/synthesizer.syr" 
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/test/synthesizer.xst" -ofn "/home/ise/VirtualBox_Box/test/synthesizer.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc src/nexys3.ucf -p xc6slx16-csg324-3 synthesizer.ngc synthesizer.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o synthesizer_map.ncd synthesizer.ngd synthesizer.pcf 
+par -w -intstyle ise -ol high -mt off synthesizer_map.ncd synthesizer.ncd synthesizer.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml synthesizer.twx synthesizer.ncd -o synthesizer.twr synthesizer.pcf 
+bitgen -intstyle ise -f synthesizer.ut synthesizer.ncd 
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/test/synthesizer.xst" -ofn "/home/ise/VirtualBox_Box/test/synthesizer.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc src/nexys3.ucf -p xc6slx16-csg324-3 synthesizer.ngc synthesizer.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o synthesizer_map.ncd synthesizer.ngd synthesizer.pcf 
+par -w -intstyle ise -ol high -mt off synthesizer_map.ncd synthesizer.ncd synthesizer.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml synthesizer.twx synthesizer.ncd -o synthesizer.twr synthesizer.pcf 
+bitgen -intstyle ise -f synthesizer.ut synthesizer.ncd 
