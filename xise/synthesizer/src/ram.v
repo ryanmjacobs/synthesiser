@@ -10,9 +10,9 @@ module ram(
     output [22:0] MemAdr
 );
     // address
-    reg [2:0] addr;
+    reg [19:0] addr;
     initial addr <= 0;
-    assign MemAdr = { { 20{1'b0} }, addr };
+    assign MemAdr = {3'b0, addr};
 
     // tmp write enable? and enable
     wire WE, EN;
