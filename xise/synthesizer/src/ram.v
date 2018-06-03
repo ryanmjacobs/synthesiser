@@ -4,14 +4,14 @@ module ram(
     input write_enable,
     input [15:0] data_write,
     inout [15:0] MemDB,
-    output [15:0] data_read,
+    output reg [15:0] data_read,
 
     output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
-    output [22:0] MemAdr
+    output [26:1] MemAdr
 );
     // address
     reg [19:0] addr = 0;
-    assign MemAdr = {3'b0, addr};
+    assign MemAdr = {7'b0, addr};
 
     // tmp write enable? and enable
     wire WE, EN;
@@ -20,7 +20,6 @@ module ram(
 
     // read and write db
     reg WR, CS;
-    reg [15:0] data_read;
     assign MemDB = (WR) ? data_write : 16'bZ;
 
     always @(posedge clk) begin

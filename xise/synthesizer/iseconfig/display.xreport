@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2018-06-03T04:12:23</DateModified>
+  <DateModified>2018-06-03T16:43:14</DateModified>
   <ModuleName>top</ModuleName>
-  <SummaryTimeStamp>Unknown</SummaryTimeStamp>
-  <SavedFilePath>/home/ryan/synthesizer/xise/synthesizer/iseconfig/top.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/ryan/synthesizer/xise/synthesizer/</ImplementationReportsDirectory>
-  <DateInitialized>2018-06-03T10:35:02</DateInitialized>
+  <SummaryTimeStamp>2018-06-03T16:37:56</SummaryTimeStamp>
+  <SavedFilePath>/home/ryan/synthesizer/xise/synthesizer/iseconfig/display.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/ryan/synthesizer/xise/synthesizer</ImplementationReportsDirectory>
+  <DateInitialized>2018-06-03T16:21:00</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>

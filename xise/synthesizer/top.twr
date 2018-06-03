@@ -1,0 +1,294 @@
+--------------------------------------------------------------------------------
+Release 14.7 Trace  (lin64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+/opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/trce -intstyle ise -v 3 -s 3 -n
+3 -fastpaths -xml top.twx top.ncd -o top.twr top.pcf
+
+Design file:              top.ncd
+Physical constraint file: top.pcf
+Device,package,speed:     xc6slx16,csg324,C,-3 (PRODUCTION 1.23 2013-10-13)
+Report level:             verbose report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:3412 - To improve timing, see the Timing Closure User Guide (UG612).
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths 
+   option. All paths that are not constrained will be reported in the 
+   unconstrained paths section(s) of the report.
+INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on 
+   a 50 Ohm transmission line loading model.  For the details of this model, 
+   and for more information on accounting for different loading conditions, 
+   please see the device datasheet.
+
+================================================================================
+Timing constraint: TS_sys_clk_pin = PERIOD TIMEGRP "sys_clk_pin" 100 MHz HIGH 
+50%;
+For more information, see Period Analysis in the Timing Closure User Guide (UG612).
+
+ 19 paths analyzed, 19 endpoints analyzed, 0 failing endpoints
+ 0 timing errors detected. (0 setup errors, 0 hold errors, 0 component switching limit errors)
+ Minimum period is   1.976ns.
+--------------------------------------------------------------------------------
+
+Paths for end point ram_/async/current_FSM_FFd1 (SLICE_X25Y22.A3), 1 path
+--------------------------------------------------------------------------------
+Slack (setup path):     8.024ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               ram_/WR (FF)
+  Destination:          ram_/async/current_FSM_FFd1 (FF)
+  Requirement:          10.000ns
+  Data Path Delay:      1.930ns (Levels of Logic = 1)
+  Clock Path Skew:      -0.011ns (0.339 - 0.350)
+  Source Clock:         clk_BUFGP rising at 0.000ns
+  Destination Clock:    clk_BUFGP rising at 10.000ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path at Slow Process Corner: ram_/WR to ram_/async/current_FSM_FFd1
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X18Y12.AQ      Tcko                  0.447   ram_/WR
+                                                       ram_/WR
+    SLICE_X25Y22.A3      net (fanout=2)        1.161   ram_/WR
+    SLICE_X25Y22.CLK     Tas                   0.322   ram_/async/current_FSM_FFd2
+                                                       ram_/async/current_FSM_FFd1-In1
+                                                       ram_/async/current_FSM_FFd1
+    -------------------------------------------------  ---------------------------
+    Total                                      1.930ns (0.769ns logic, 1.161ns route)
+                                                       (39.8% logic, 60.2% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point ram_/async/cycle_count_1 (SLICE_X24Y22.B1), 1 path
+--------------------------------------------------------------------------------
+Slack (setup path):     8.569ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               ram_/async/current_FSM_FFd2 (FF)
+  Destination:          ram_/async/cycle_count_1 (FF)
+  Requirement:          10.000ns
+  Data Path Delay:      1.387ns (Levels of Logic = 1)
+  Clock Path Skew:      -0.009ns (0.144 - 0.153)
+  Source Clock:         clk_BUFGP rising at 0.000ns
+  Destination Clock:    clk_BUFGP rising at 10.000ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path at Slow Process Corner: ram_/async/current_FSM_FFd2 to ram_/async/cycle_count_1
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X25Y22.BQ      Tcko                  0.391   ram_/async/current_FSM_FFd2
+                                                       ram_/async/current_FSM_FFd2
+    SLICE_X24Y22.B1      net (fanout=7)        0.655   ram_/async/current_FSM_FFd2
+    SLICE_X24Y22.CLK     Tas                   0.341   ram_/async/cycle_count<2>
+                                                       ram_/async/cycle_count_1_rstpot
+                                                       ram_/async/cycle_count_1
+    -------------------------------------------------  ---------------------------
+    Total                                      1.387ns (0.732ns logic, 0.655ns route)
+                                                       (52.8% logic, 47.2% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point ram_/async/current_FSM_FFd1 (SLICE_X25Y22.A2), 1 path
+--------------------------------------------------------------------------------
+Slack (setup path):     8.597ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               ram_/async/cycle_count_0 (FF)
+  Destination:          ram_/async/current_FSM_FFd1 (FF)
+  Requirement:          10.000ns
+  Data Path Delay:      1.359ns (Levels of Logic = 1)
+  Clock Path Skew:      -0.009ns (0.144 - 0.153)
+  Source Clock:         clk_BUFGP rising at 0.000ns
+  Destination Clock:    clk_BUFGP rising at 10.000ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path at Slow Process Corner: ram_/async/cycle_count_0 to ram_/async/current_FSM_FFd1
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X24Y22.AQ      Tcko                  0.408   ram_/async/cycle_count<2>
+                                                       ram_/async/cycle_count_0
+    SLICE_X25Y22.A2      net (fanout=5)        0.629   ram_/async/cycle_count<0>
+    SLICE_X25Y22.CLK     Tas                   0.322   ram_/async/current_FSM_FFd2
+                                                       ram_/async/current_FSM_FFd1-In1
+                                                       ram_/async/current_FSM_FFd1
+    -------------------------------------------------  ---------------------------
+    Total                                      1.359ns (0.730ns logic, 0.629ns route)
+                                                       (53.7% logic, 46.3% route)
+
+--------------------------------------------------------------------------------
+
+Hold Paths: TS_sys_clk_pin = PERIOD TIMEGRP "sys_clk_pin" 100 MHz HIGH 50%;
+--------------------------------------------------------------------------------
+
+Paths for end point ram_/async/cycle_count_0 (SLICE_X24Y22.A6), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.431ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               ram_/async/cycle_count_0 (FF)
+  Destination:          ram_/async/cycle_count_0 (FF)
+  Requirement:          0.000ns
+  Data Path Delay:      0.431ns (Levels of Logic = 1)
+  Clock Path Skew:      0.000ns
+  Source Clock:         clk_BUFGP rising at 10.000ns
+  Destination Clock:    clk_BUFGP rising at 10.000ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path at Fast Process Corner: ram_/async/cycle_count_0 to ram_/async/cycle_count_0
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X24Y22.AQ      Tcko                  0.200   ram_/async/cycle_count<2>
+                                                       ram_/async/cycle_count_0
+    SLICE_X24Y22.A6      net (fanout=5)        0.041   ram_/async/cycle_count<0>
+    SLICE_X24Y22.CLK     Tah         (-Th)    -0.190   ram_/async/cycle_count<2>
+                                                       ram_/async/cycle_count_0_rstpot
+                                                       ram_/async/cycle_count_0
+    -------------------------------------------------  ---------------------------
+    Total                                      0.431ns (0.390ns logic, 0.041ns route)
+                                                       (90.5% logic, 9.5% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point ram_/async/current_FSM_FFd2 (SLICE_X25Y22.B6), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.454ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               ram_/async/cycle_count_0 (FF)
+  Destination:          ram_/async/current_FSM_FFd2 (FF)
+  Requirement:          0.000ns
+  Data Path Delay:      0.456ns (Levels of Logic = 1)
+  Clock Path Skew:      0.002ns (0.033 - 0.031)
+  Source Clock:         clk_BUFGP rising at 10.000ns
+  Destination Clock:    clk_BUFGP rising at 10.000ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path at Fast Process Corner: ram_/async/cycle_count_0 to ram_/async/current_FSM_FFd2
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X24Y22.AQ      Tcko                  0.200   ram_/async/cycle_count<2>
+                                                       ram_/async/cycle_count_0
+    SLICE_X25Y22.B6      net (fanout=5)        0.041   ram_/async/cycle_count<0>
+    SLICE_X25Y22.CLK     Tah         (-Th)    -0.215   ram_/async/current_FSM_FFd2
+                                                       ram_/async/current_FSM_FFd2-In1
+                                                       ram_/async/current_FSM_FFd2
+    -------------------------------------------------  ---------------------------
+    Total                                      0.456ns (0.415ns logic, 0.041ns route)
+                                                       (91.0% logic, 9.0% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point ram_/async/cycle_count_2 (SLICE_X24Y22.C5), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.461ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               ram_/async/cycle_count_2 (FF)
+  Destination:          ram_/async/cycle_count_2 (FF)
+  Requirement:          0.000ns
+  Data Path Delay:      0.461ns (Levels of Logic = 1)
+  Clock Path Skew:      0.000ns
+  Source Clock:         clk_BUFGP rising at 10.000ns
+  Destination Clock:    clk_BUFGP rising at 10.000ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path at Fast Process Corner: ram_/async/cycle_count_2 to ram_/async/cycle_count_2
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X24Y22.CQ      Tcko                  0.200   ram_/async/cycle_count<2>
+                                                       ram_/async/cycle_count_2
+    SLICE_X24Y22.C5      net (fanout=3)        0.071   ram_/async/cycle_count<2>
+    SLICE_X24Y22.CLK     Tah         (-Th)    -0.190   ram_/async/cycle_count<2>
+                                                       ram_/async/cycle_count_2_rstpot
+                                                       ram_/async/cycle_count_2
+    -------------------------------------------------  ---------------------------
+    Total                                      0.461ns (0.390ns logic, 0.071ns route)
+                                                       (84.6% logic, 15.4% route)
+
+--------------------------------------------------------------------------------
+
+Component Switching Limit Checks: TS_sys_clk_pin = PERIOD TIMEGRP "sys_clk_pin" 100 MHz HIGH 50%;
+--------------------------------------------------------------------------------
+Slack: 8.270ns (period - min period limit)
+  Period: 10.000ns
+  Min period limit: 1.730ns (578.035MHz) (Tbcper_I)
+  Physical resource: clk_BUFGP/BUFG/I0
+  Logical resource: clk_BUFGP/BUFG/I0
+  Location pin: BUFGMUX_X3Y13.I0
+  Clock network: clk_BUFGP/IBUFG
+--------------------------------------------------------------------------------
+Slack: 8.941ns (period - min period limit)
+  Period: 10.000ns
+  Min period limit: 1.059ns (944.287MHz) (Tickper)
+  Physical resource: ram_/data_read<6>/CLK0
+  Logical resource: ram_/data_read_6/CLK0
+  Location pin: ILOGIC_X0Y10.CLK0
+  Clock network: clk_BUFGP
+--------------------------------------------------------------------------------
+Slack: 8.941ns (period - min period limit)
+  Period: 10.000ns
+  Min period limit: 1.059ns (944.287MHz) (Tickper)
+  Physical resource: ram_/data_read<7>/CLK0
+  Logical resource: ram_/data_read_7/CLK0
+  Location pin: ILOGIC_X0Y11.CLK0
+  Clock network: clk_BUFGP
+--------------------------------------------------------------------------------
+
+
+All constraints were met.
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Clock to Setup on destination clock clk
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |    1.976|         |         |         |
+---------------+---------+---------+---------+---------+
+
+
+Timing summary:
+---------------
+
+Timing errors: 0  Score: 0  (Setup/Max: 0, Hold: 0)
+
+Constraints cover 19 paths, 0 nets, and 23 connections
+
+Design statistics:
+   Minimum period:   1.976ns{1}   (Maximum frequency: 506.073MHz)
+
+
+------------------------------------Footnotes-----------------------------------
+1)  The minimum period statistic assumes all single cycle delays.
+
+Analysis completed Sun Jun  3 16:43:55 2018 
+--------------------------------------------------------------------------------
+
+Trace Settings:
+-------------------------
+Trace Settings 
+
+Peak Memory Usage: 396 MB
+
+
+
