@@ -12,7 +12,7 @@ module top(
 initial led <= 8'b10101010;
 
 //reg write_enable = 0;
-wire write_enable = 0;
+wire write_enable;
 wire [15:0] data_read;
 inout [15:0] MemDB;
 
