@@ -18,7 +18,7 @@ top top(rst, clk, led, mclk, lrck, sck, sdout, phase, s);
 initial begin
     $display("--- top tb ---");
     $dumpfile("top.vcd");
-    $dumpvars(0, led, mclk, lrck, sck, sdout, phase, s);
+    $dumpvars(0, top_tb);
 end
 
 initial begin
