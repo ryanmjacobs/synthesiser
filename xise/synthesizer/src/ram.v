@@ -18,6 +18,7 @@ module ram(
     assign WE = write_enable;
     assign EN = 1;
 
+    // read and write db
     reg WR, CS;
     reg [15:0] data_read;
     assign MemDB = (WR) ? data_write : 16'bZ;
