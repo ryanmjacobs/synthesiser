@@ -22,19 +22,19 @@ always @(posedge clk) begin
     if (rst) begin
         mclk <= 0;
         mclk_cnt <= 0;
-    end
-
-    // increment counter
-    if (mclk_cnt < mclk_count) begin
-        mclk_cnt <= mclk_cnt + 1;
     end else begin
-        mclk_cnt <= 0;
+        // increment counter
+        if (mclk_cnt < mclk_count) begin
+            mclk_cnt <= mclk_cnt + 1;
+        end else begin
+            mclk_cnt <= 0;
 
-        // create a pulse
-        if (mclk == 0)
-            mclk <= 1;
-        else
-            mclk <= 0;
+            // create a pulse
+            if (mclk == 0)
+                mclk <= 1;
+            else
+                mclk <= 0;
+        end
     end
 end
 
@@ -44,20 +44,20 @@ always @(posedge clk) begin
     if (rst) begin
         lrck <= 0;
         lrck_cnt <= 0;
-    end
+    end else begin
+        // increment counter on mclk
+        if (mclk) begin
+            if (lrck_cnt < lrck_count) begin
+                lrck_cnt <= lrck_cnt + 1;
+            end else begin
+                lrck_cnt <= 0;
 
-    // increment counter on mclk
-    if (mclk) begin
-        if (lrck_cnt < lrck_count) begin
-            lrck_cnt <= lrck_cnt + 1;
-        end else begin
-            lrck_cnt <= 0;
-
-            // create a pulse
-            if (lrck == 0)
-                lrck <= 1;
-            else
-                lrck <= 0;
+                // create a pulse
+                if (lrck == 0)
+                    lrck <= 1;
+                else
+                    lrck <= 0;
+            end
         end
     end
 end
