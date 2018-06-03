@@ -34,7 +34,8 @@ module ram(
     audio_pulse _audio_pulse(clk, ap);
     always @(posedge clk) begin
         if (ap) begin
-            if (addr >= 384_000)
+          //if (addr >= 384_000)
+            if (addr >= 16)
                 addr <= 0;
             else
                 addr <= addr + 1'b1;
@@ -46,10 +47,13 @@ endmodule
 
 // Generates a pulse at a rate of 31.5 KHz for the audio loop
 module audio_pulse(input clk_in, output reg pulse_out);
-    reg [11:0] count = 0;
+  //reg [11:0] count = 0;
+    reg [26:0] count = 0;
 
+    // TMP: 1hz pulse
     always @(posedge clk_in) begin
-        if (count >= 3200) begin
+      //if (count >= 3200) begin
+        if (count >= 100_000_000) begin
             pulse_out <= 1;
             count <= count + 1'b1;
         end else begin
