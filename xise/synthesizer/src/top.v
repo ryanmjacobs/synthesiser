@@ -9,18 +9,50 @@ module top(
     output reg sdout,
 
     output [7:0] phase,
-    output [7:0] s
+    output [7:0] s,
+
+    output MemOE,
+    output MemWR,
+    output MemClk,
+    output RamCS,
+    output RamUB,
+    output RamLB,
+    output RamAdv,
+    output RamCRE,
+    output [26:1] MemAdr
 );
 
 initial led <= 8'b10101010;
 
-reg lrck;
 reg [3:0]  pos = 0;
 reg [15:0] data = 16'b0001_1000;
 
 wire mclk_pulse;
 wire lrck_pulse;
 clkdiv clkdiv(rst, clk, mclk_pulse, lrck_pulse);
+
+//////////////////////////////////////////////////////////////////////////////
+// Testing RAM
+//////////////////////////////////////////////////////////////////////////////
+reg [26:0] DIV_CLK;
+assign MemClk = DIV_CLK[0];
+
+always @(posedge clk) begin
+    if (rst)
+        DIV_CLK <= 0;
+    else
+        DIV_CLK <= DIV_CLK + 1;
+end
+
+wire [22:0] address;
+MemoryCtrl memory(
+    .Clk(MemClk), .Reset(rst), .MemAdr(MemAdr), .MemOE(MemOE), .MemWR(MemWR),
+    .RamCS(RamCS), .RamUB(RamUB), .RamLB(RamLB), .RamAdv(RamAdv), .RamCRE(RamCRE),
+    .writeData(writeData), .AddressIn(address)
+);
+//////////////////////////////////////////////////////////////////////////////
+// END Testing RAM
+//////////////////////////////////////////////////////////////////////////////
 
 // sine wave table
 reg [7:0] phase = 0;
@@ -57,9 +89,6 @@ always @(posedge clk) begin
             sck <= 0;
             pos <= pos + 1;
             sdout <= (data >> ~pos);
-
-            if (pos == 15)
-                lrck <= ~lrck;
         end else begin
             sck <= 1;
         end
