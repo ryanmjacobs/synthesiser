@@ -1,28 +1,32 @@
 module ram(
     input clk,
-
-    input  [2:0]  addr,
-    input  [3:0]  data_write,
-    inout  [15:0] MemDB,
-    output        RamAdv,
-    RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
+    input rst,
+    input write_enable,
+    input [15:0] data_write,
+    inout [15:0] MemDB,
     output [15:0] data_read,
-    output [22:0] MemAdr);
 
+    output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
+    output [22:0] MemAdr
+);
+    // address
+    reg [2:0] addr;
+    initial addr <= 0;
     assign MemAdr = { { 20{1'b0} }, addr };
 
+    // tmp write enable? and enable
     wire WE, EN;
     assign WE = 0;
     assign EN = 0;
 
     reg WR, CS;
     reg [15:0] data_read;
-    assign MemDB = ( WR ) ? { data_write, data_write, data_write, data_write } : 16'bZ;    
+    assign MemDB = (WR) ? data_write : 16'bZ;
 
     always @(posedge clk) begin
-      data_read = MemDB;
-      WR <= WE;
-      CS <= EN;        
+        data_read = MemDB;
+        WR <= WE;
+        CS <= EN;
     end
 
     async_fsm async(clk, WR, CS, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB);
@@ -75,7 +79,7 @@ module async_fsm(
    always @(*) begin
       case (current)
          READY: begin
-            next     <= ( CS ) ? 
+            next     <= ( CS ) ?
                         ( ( WR ) ? WRITE : READ ) :
                         READY;
             controls <= IDLE;
@@ -93,5 +97,5 @@ module async_fsm(
             controls <= IDLE;
          end
       endcase
-   end        
-endmodule 
+   end
+endmodule
