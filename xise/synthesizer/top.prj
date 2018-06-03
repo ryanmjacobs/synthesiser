@@ -1,0 +1,2 @@
+verilog work "src/clkdiv.v"
+verilog work "src/top.v"

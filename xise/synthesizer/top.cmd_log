@@ -1,0 +1,1 @@
+xst -intstyle ise -ifn "/home/ise/VirtualBox_Box/synthesizer/xise/synthesizer/top.xst" -ofn "/home/ise/VirtualBox_Box/synthesizer/xise/synthesizer/top.syr" 
