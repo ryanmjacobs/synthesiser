@@ -25,15 +25,11 @@ always @(posedge clk) begin
     end else begin
         // increment counter
         if (mclk_cnt < mclk_max) begin
+            mclk <= 0;
             mclk_cnt <= mclk_cnt + 1;
         end else begin
+            mclk <= 1;
             mclk_cnt <= 0;
-
-            // create a pulse
-            if (mclk == 0)
-                mclk <= 1;
-            else
-                mclk <= 0;
         end
     end
 end
