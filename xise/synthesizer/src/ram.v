@@ -33,8 +33,12 @@ module ram(
     wire ap;
     audio_pulse _audio_pulse(clk, ap);
     always @(posedge clk) begin
-        if (ap)
-            addr <= addr + 1'b1;
+        if (ap) begin
+            if (addr >= 384_000)
+                addr <= 0;
+            else
+                addr <= addr + 1'b1;
+        end
     end
 
     async_fsm async(clk, WR, CS, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB);
@@ -45,7 +49,7 @@ module audio_pulse(input clk_in, output reg pulse_out);
     reg [11:0] count = 0;
 
     always @(posedge clk_in) begin
-        if (count == 3199) begin
+        if (count >= 3200) begin
             pulse_out <= 1;
             count <= count + 1'b1;
         end else begin
