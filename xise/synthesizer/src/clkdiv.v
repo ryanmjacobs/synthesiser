@@ -44,12 +44,14 @@ always @(posedge clk) begin
         // increment counter on mclk
         if (mclk) begin
             if (lrck_cnt < lrck_max) begin
-                lrck <= 0;
                 lrck_cnt <= lrck_cnt + 1;
             end else begin
                 lrck <= 1;
                 lrck_cnt <= 0;
             end
+        end else begin
+            // reset pulse
+            lrck <= 0;
         end
     end
 end
