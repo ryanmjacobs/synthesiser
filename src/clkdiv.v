@@ -14,7 +14,7 @@ reg [63:0] lrck_cnt;
 
 // counter thresholds
 parameter mclk_max = 4;
-parameter lrck_max = 256;
+parameter lrck_max = 1024;
 
 // mclk
 always @(posedge clk) begin
