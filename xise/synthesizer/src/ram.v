@@ -15,8 +15,8 @@ module ram(
 
     // tmp write enable? and enable
     wire WE, EN;
-    assign WE = 0;
-    assign EN = 0;
+    assign WE = write_enable;
+    assign EN = 1;
 
     reg WR, CS;
     reg [15:0] data_read;
