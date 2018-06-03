@@ -10,8 +10,7 @@ module ram(
     output [22:0] MemAdr
 );
     // address
-    reg [19:0] addr;
-    initial addr <= 0;
+    reg [19:0] addr = 0;
     assign MemAdr = {3'b0, addr};
 
     // tmp write enable? and enable
