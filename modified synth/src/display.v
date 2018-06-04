@@ -5,11 +5,10 @@
 module display(freq, anode, segOut);
     input [11:0] freq;
     output [3:0] anode;     // Controls the display digits
-    output [6:0] segOut;    // Controls which digit to display
+    output reg [6:0] segOut;    // Controls which digit to display
     
     // Output wires and registers
     wire [3:0] anode;
-    reg [6:0] segOut;
     
     // Only display the rightmost digit
     assign anode = 4'b1110;

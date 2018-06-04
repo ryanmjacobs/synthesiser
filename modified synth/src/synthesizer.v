@@ -22,11 +22,10 @@ module synthesizer(clk, sw, btns, JA, seg, an);
 
     sw_interface sw_interface(clk, sw[5:0], freq);
     debounce play_button(clk, btns, play);
-    display display (freq, seq, an);
+    display display (freq, seg, an);
     osc_square sqwave (freq, JA[2], sig_square);
     osc_tri_saw sawtriwave (freq, JA[2], sig_saw, sig_tri);
     osc_sine sinesc_ (freq, JA[2], sig_sine);
     sig_adder sigadd_ (clk, sw[7:6], play, sig_square, sig_saw, sig_tri, sig_sine, sig);
     pmod_out out_ (sig, clk, JA[0], JA[1], JA[2], JA[3]);
-
 endmodule
