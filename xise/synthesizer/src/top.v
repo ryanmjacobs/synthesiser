@@ -19,12 +19,13 @@ assign write_data = sw;
 assign write_enable = sw[0];
 
 ram ram_(clk, rst, write_enable, write_data, MemDB, data_read,
-    MemAdv, MemClk, RamCS, MemOE, MemWR, RamLB, RamUB, MemAdr, led);
+    MemAdv, MemClk, RamCS, MemOE, MemWR, RamLB, RamUB, MemAdr);
 
-/*
 always @(*) begin
-    led [6:0] <= data_read;
+    if (rst)
+        led <= 8'b0;
+    else
+        led [7:0] <= data_read;
 end
-*/
 
 endmodule
