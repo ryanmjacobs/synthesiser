@@ -4,6 +4,7 @@ module ram(
     input write_enable,
     input [15:0] data_write,
     inout [15:0] MemDB,
+    
     output reg [15:0] data_read,
 
     output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
@@ -34,7 +35,7 @@ module ram(
     always @(posedge clk) begin
         if (ap) begin
           //if (addr >= 384_000)
-            if (addr >= 16)
+            if (addr >= 18768766)
                 addr <= 0;
             else
                 addr <= addr + 1'b1;
