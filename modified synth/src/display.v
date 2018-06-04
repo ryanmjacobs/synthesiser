@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 // Module which displays the current note being played to the
 // 7-segment display
 module display(freq, anode, segOut);

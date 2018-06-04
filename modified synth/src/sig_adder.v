@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 // Module which accumulates the waveforms chosen by the nexys 3 switches
 // into the total output signal
 // Allows user to play multiple types of waveforms simultaneously

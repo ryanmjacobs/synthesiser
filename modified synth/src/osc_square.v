@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 // Module for generating a square wave
 module osc_square(freq, clk, sig);
     input [11:0] freq;

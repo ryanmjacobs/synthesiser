@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 // Module for generating a sine wave
 module osc_sine(freq, clk, sin);
     input [11:0] freq;

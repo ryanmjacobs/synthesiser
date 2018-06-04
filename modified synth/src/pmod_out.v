@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 // Module which sends the total calculated output signal to the PmodI2S
 // stereo audio output device
 module pmod_out(sig, clk, MCLK, LRCLK, SCLK, SDIN);

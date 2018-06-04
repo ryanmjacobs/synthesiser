@@ -1,5 +1,3 @@
-`timescale 1ns / 1ps
-
 // Module for generating sawtooth and triangle waves
 module osc_tri_saw(freq, clk, sig_saw, sig_tri);
     input [11:0] freq;
