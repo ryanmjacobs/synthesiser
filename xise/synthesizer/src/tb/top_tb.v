@@ -13,7 +13,7 @@ wire sdout;
 wire [7:0] phase;
 wire [7:0] s;
 
-top top(rst, clk, led, mclk, lrck, sck, sdout, phase, s);
+top top(rst, clk, led, mclk, lrck, sck, sdout, phase, s, _);
 
 initial begin
     $display("--- top tb ---");

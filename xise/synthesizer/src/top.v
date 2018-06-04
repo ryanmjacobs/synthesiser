@@ -10,8 +10,6 @@ module top(
     output [26:1] MemAdr
 );
 
-initial led <= 8'b10101010;
-
 //reg write_enable = 0;
 wire write_enable;
 wire [15:0] data_read;
@@ -20,11 +18,12 @@ wire [15:0] write_data;
 assign write_data = sw;
 assign write_enable = sw[0];
 
+initial Led[7] <= 0;
 ram ram_(clk, rst, write_enable, write_data, MemDB, data_read,
-    MemAdv, MemClk, RamCS, MemOE, MemWR, RamLB, RamUB, MemAdr);
+    MemAdv, MemClk, RamCS, MemOE, MemWR, RamLB, RamUB, MemAdr, Led[7]);
 
 always @(*) begin
-    led <= data_read;
+    led [6:0] <= data_read;
 end
 
 endmodule
