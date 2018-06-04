@@ -5,7 +5,7 @@
 // Allows user to play multiple types of waveforms simultaneously
 module sig_adder(clk, sw, btn, sig_square, sig_saw, sig_tri, sig_sine, sig);
     input clk;                  // 1MHz clock
-    input [7:4] sw;             // Switches on FPGA
+    input [7:6] sw;             // Switches on FPGA
     input btn;
     input [15:0] sig_square;
     input [15:0] sig_saw;
@@ -33,12 +33,13 @@ module sig_adder(clk, sw, btn, sig_square, sig_saw, sig_tri, sig_sine, sig);
             if (sw[6] == 1) begin
                 sig_temp = sig_temp + sig_saw;
             end
+            /*
             if (sw[5] == 1) begin
                 sig_temp = sig_temp + sig_tri;
             end
             if (sw[4] == 1) begin
                 sig_temp = sig_temp + sig_sine;
-            end
+            end */
         end
         // Generates random noise
         /*
