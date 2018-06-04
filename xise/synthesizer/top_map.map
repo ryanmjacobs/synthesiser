@@ -1,0 +1,116 @@
+Release 14.7 Map P.20160913 (lin64)
+Xilinx Map Application Log File for Design 'top'
+
+Design Information
+------------------
+Command Line   : map -intstyle ise -p xa6slx4-csg225-3 -w -logic_opt off -ol
+high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off
+-pr off -lc off -power off -o top_map.ncd top.ngd top.pcf 
+Target Device  : xa6slx4
+Target Package : csg225
+Target Speed   : -3
+Mapper Version : aspartan6 -- $Revision: 1.55 $
+Mapped Date    : Sun Jun  3 16:47:35 2018
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+INFO:Security:54 - 'xa6slx4' is a WebPack part.
+WARNING:Security:42 - Your software subscription period has lapsed. Your current
+version of Xilinx tools will continue to function, but you no longer qualify for
+Xilinx software updates or new releases.
+----------------------------------------------------------------------
+Mapping design into LUTs...
+ERROR:MapLib:30 - LOC constraint V10 on clk is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint T5 on sw<7> is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint V8 on sw<6> is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint U8 on sw<5> is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint V9 on sw<2> is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint T9 on sw<1> is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint T10 on sw<0> is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint T11 on led<7> is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint V15 on led<3> is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint U15 on led<2> is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint V16 on led<1> is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint U16 on led<0> is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint C18 on MemAdr<22> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint F14 on MemAdr<21> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint D17 on MemAdr<19> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint D18 on MemAdr<18> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint H12 on MemAdr<17> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint G13 on MemAdr<16> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint E16 on MemAdr<15> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint E18 on MemAdr<14> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint F17 on MemAdr<11> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint F18 on MemAdr<10> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint H14 on MemAdr<8> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint H16 on MemAdr<6> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint G16 on MemAdr<5> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint G18 on MemAdr<4> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint J16 on MemAdr<3> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint J18 on MemAdr<2> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint K17 on MemAdr<1> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint K18 on MemAdr<0> is invalid: No such site on
+   the device. To bypass this error set the environment variable
+   'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint H18 on RamAdv is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint L18 on MemOE is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint M16 on MemWR is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+ERROR:MapLib:30 - LOC constraint K16 on RamLB is invalid: No such site on the
+   device. To bypass this error set the environment variable 'XIL_MAP_LOCWARN'.
+
+Error found in mapping process, exiting...
+Errors found during the mapping phase.  Please see map report file for more
+details.  Output files will not be written.
+
+Design Summary
+--------------
+Number of errors   :  34
+Number of warnings :   0
