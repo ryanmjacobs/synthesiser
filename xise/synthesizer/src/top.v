@@ -2,7 +2,7 @@
 module top(
     input rst,
 	input clk,
-    output [7:0] led,
+    output reg [7:0] led,
     input [7:0] sw,
     inout [15:0] MemDB,
 
