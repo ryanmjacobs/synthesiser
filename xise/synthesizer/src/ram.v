@@ -9,7 +9,7 @@ module ram(
     output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
     output [26:1] MemAdr,
 
-    output reg Led
+    output reg [7:0] Led
 );
     // address
     reg [19:0] addr = 0;
@@ -35,7 +35,7 @@ module ram(
     audio_pulse _audio_pulse(clk, ap);
     always @(posedge clk) begin
         if (ap) begin
-            Led <= ~Led;
+            Led <= addr;
           //if (addr >= 384_000)
             if (addr >= 16)
                 addr <= 0;
@@ -56,11 +56,11 @@ module audio_pulse(input clk_in, output reg pulse_out);
     always @(posedge clk_in) begin
       //if (count >= 3200) begin
         if (count >= 100_000_000) begin
-            pulse_out <= 1;
-            count <= count + 1'b1;
-        end else begin
             count <= 0;
+            pulse_out <= 1;
+        end else begin
             pulse_out <= 0;
+            count <= count + 1'b1;
         end
     end
 endmodule
