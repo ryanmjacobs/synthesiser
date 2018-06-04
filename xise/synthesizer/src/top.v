@@ -6,7 +6,7 @@ module top(
     input [7:0] sw,
     inout [15:0] MemDB,
 
-    output MemAdv, MemClk, RamCS, MemOE, MemWR, RamLB, RamUB,
+    output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
     output [26:1] MemAdr
 );
 
@@ -19,7 +19,7 @@ assign write_data = sw;
 assign write_enable = sw[0];
 
 ram ram_(clk, rst, write_enable, write_data, MemDB, data_read,
-    MemAdv, MemClk, RamCS, MemOE, MemWR, RamLB, RamUB, MemAdr);
+    RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB, MemAdr);
 
 always @(*) begin
     if (rst)

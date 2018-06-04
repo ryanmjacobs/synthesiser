@@ -15,7 +15,7 @@ module ram_tb;
     wire [7:0] Led;
 
     ram ram_(clk, rst, write_enable, data_write, MemDB, data_read,
-        MemAdv, MemClk, RamCS, MemOE, MemWR, RamLB, RamUB, MemAdr, Led);
+        RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB, MemAdr, Led);
 
     initial begin
         $display("--- ram tb ---");
