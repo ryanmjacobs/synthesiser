@@ -2,8 +2,8 @@
 module async_controller(
     input clk, WR,
     input  [15:0] data_write,
-    inout  [15:0] MemDB,
 
+    inout  [15:0] MemDB,
     output [22:0] MemAdr,
     output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
     output reg [15:0] data_read
