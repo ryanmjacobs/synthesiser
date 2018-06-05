@@ -21,5 +21,24 @@ module synthesizer(clk, sw, btns, JA, seg, an);
     osc_tri_saw sawtriwave (freq, JA[2], sig_saw, sig_tri);
     osc_sine sinesc_ (freq, JA[2], sig_sine);
     sig_adder sigadd_ (clk, sw[7:6], play, sig_square, sig_saw, sig_tri, sig_sine, sig);
-    pmod_out out_ (sig, clk, JA[0], JA[1], JA[2], JA[3]);
+
+    wire [15:0] sig_asd;
+    async_controllerr async_controller_(
+        .clk(clk),
+        .WR(btns),
+        .data_write(sig),
+
+        .MemDB(MemDB),
+        .MemAdr(MemAdr),
+        .RamAdv(RamAdv),
+        .RamClk(RamClk),
+        .RamCS(RamCS),
+        .MemOE(MemOE),
+        .MemWR(MemWR),
+        .RamLB(RamLB),
+        .RamUB(RamUB),
+        .data_read(sig_asd)
+    );
+
+    pmod_out out_ (sig_asd, clk, JA[0], JA[1], JA[2], JA[3]);
 endmodule
