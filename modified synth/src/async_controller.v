@@ -1,32 +1,24 @@
 `timescale 1ns / 100ps
-module async_controller( input         clk,
-                                       WE,
-                         input  [7:0]  data_write,
-                         inout  [15:0] MemDB,
-                         output        RamAdv,
-													RamClk,
-													RamCS,
-                                       MemOE,
-                                       MemWR,
-                                       RamLB,
-                                       RamUB,
-                         output [3:0]  an,
-                         output [7:0]  seg,
-//                       output [15:0] data_read,
-                         output [22:0] MemAdr );
+module async_controller(
+    input clk, WR,
+    input  [7:0]  data_write,
+    inout  [15:0] MemDB,
 
-   reg [3:0] addr = 0;
-   assign MemAdr = { { 19{1'b0} }, addr };
-
-   reg        WR;
-   reg [15:0] data_read;
-
-   assign MemDB = ( WR ) ? {data_write, data_write} : 16'bZ;	
-   always @( posedge clk ) begin
-      data_read = MemDB;
-      WR <= WE;		
-   end
-
+    output [22:0] MemAdr,
+    output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
+    output reg [15:0] data_read
+);
+    
+    // Pad our MemAddress with zeroes
+    reg [3:0] addr = 0;
+    assign MemAdr = { { 19{1'b0} }, addr };
+    
+    // Continually copy MemDB to our data_read
+    assign MemDB = WR ? {data_write, data_write} : 16'bZ;
+    always @(posedge clk) begin
+        data_read = MemDB;
+    end
+    
     // advance audio slices at ~32khz
     wire ap;
     audio_pulse _audio_pulse(clk, ap);
@@ -35,28 +27,8 @@ module async_controller( input         clk,
             addr <= addr + 1'b1;
         end
     end
-
-   async_fsm async( clk,
-                    WR,
-						  RamAdv,
-						  RamClk,
-                    RamCS,
-                    MemOE,
-                    MemWR,
-                    RamLB,
-                    RamUB );
-
-   disp_hex_mux hex_display( clk,
-                             1'b0,
-                             data_read[15:12],
-                             data_read[11:8],
-                             data_read[7:4],
-                             data_read[3:0],
-                             4'hf,
-                             an,
-                             seg );
-
-        
+    
+    async_fsm async(clk, WR, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB);
 endmodule
 
 // Generates a pulse at a rate of 31.5 KHz for the audio loop
@@ -80,8 +52,8 @@ endmodule
 module async_fsm( input  clk,
                          WR,
                   output RamAdv,
-								 RamClk,
-								 RamCS,
+                 RamClk,
+                 RamCS,
                          MemOE,
                          MemWR,
                          RamLB,
@@ -133,5 +105,5 @@ module async_fsm( input  clk,
             controls <= INACTIVE;
          end
       endcase
-   end		
-endmodule 
+   end
+endmodule
