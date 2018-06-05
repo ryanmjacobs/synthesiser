@@ -10,8 +10,8 @@ module async_controller(
 );
     
     // Pad our MemAddress with zeroes
-    reg [3:0] addr = 0;
-    assign MemAdr = { { 19{1'b0} }, addr };
+    reg [20:0] addr = 0;
+    assign MemAdr = { { 2{1'b0} }, addr };
     
     // Continually copy MemDB to our data_read
     assign MemDB = WR ? data_write : 16'bZ;
@@ -33,10 +33,10 @@ endmodule
 
 // Generates a pulse at a rate of 31.5 KHz for the audio loop
 module audio_pulse(input clk_in, output reg pulse_out);
-    reg [11:0] count = 0;
+    reg [7:0] count = 0;
 
     always @(posedge clk_in) begin
-        if (count >= 3200) begin
+        if (count >= 200) begin
             count <= 0;
             pulse_out <= 1;
         end else begin
