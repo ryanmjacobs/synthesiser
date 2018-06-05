@@ -1,5 +1,5 @@
 module synthesizer(
-    clk, sw, btnd, btnr, JA, seg, an,
+    clk, sw, btnd, btnr, JA, seg, an, Led,
 
     // Ram Access passthrough
     MemDB, MemAdr, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB
@@ -7,9 +7,11 @@ module synthesizer(
     input clk;          // 100MHz clock
     input [7:0] sw;
     input btnd;         // middle button, "play"
+    input btnr;         // toggle track button
     inout [3:0] JA;     // pmodi2s module
     output [6:0] seg;   // 7 seg display
     output [3:0] an;    // panel selector
+    output reg [7:0] Led;
     
     wire [15:0] sig_square; // Square wave
     wire [15:0] sig_saw;    // Sawtooth wave
@@ -36,6 +38,7 @@ module synthesizer(
     reg track_select = 0;
     debounce db_(clk, btnr, toggle_track);
     always @(toggle_track) track_select = ~track_select;
+    always @* Led <= track_select;
 
     wire [15:0] sig_asd;
     async_controller async_controller_(
