@@ -10,6 +10,7 @@ module display(clk, freq, an, seg);
     wire pulse;
     reg [1:0] digit;
     display_pulse display_pulse_(clk, pulse);
+
     always @(posedge clk) begin
         if (pulse) begin
             digit <= digit + 1'b1;
@@ -41,10 +42,10 @@ endmodule
 
 // ~250 Hz
 module display_pulse(input clk_in, output reg pulse_out);
-    reg [18:0] count = 0;
+    reg [31:0] count = 0;
 
     always @(posedge clk_in) begin
-        if (count >= 200000) begin
+        if (count >= 100000000) begin
             count <= 0;
             pulse_out <= 1;
         end else begin
