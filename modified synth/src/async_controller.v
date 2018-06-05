@@ -1,23 +1,26 @@
 `timescale 1ns / 100ps
 module async_controller(
     input clk, WR,
-    input  [15:0] data_write,
+    input track_select, // either track 1 or 2
+    input  [7:0] data_write,
 
     inout  [15:0] MemDB,
     output [22:0] MemAdr,
     output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
     output reg [15:0] data_read
 );
-    
     // Pad our MemAddress with zeroes
     reg [20:0] addr = 0;
     assign MemAdr = { { 2{1'b0} }, addr };
     
     // Continually copy MemDB to our data_read
-    assign MemDB = WR ? data_write : 16'bZ;
-    always @(posedge clk) begin
-        data_read = MemDB;
-    end
+    assign MemDB =
+      WR ? data_write :
+        (track_select ? 16'bZZZZZZZZ00000000 : 16b'00000000ZZZZZZZZ);
+
+    // Output layered tracks
+    always @(posedge clk)
+        data_read = 2 * (MemDB[15:8] + MemDB[7:0]);
     
     // advance audio slices at ~32khz
     wire ap;
