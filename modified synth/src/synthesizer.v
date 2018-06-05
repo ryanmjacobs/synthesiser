@@ -23,7 +23,7 @@ module synthesizer(clk, sw, btns, JA, seg, an);
     sig_adder sigadd_ (clk, sw[7:6], play, sig_square, sig_saw, sig_tri, sig_sine, sig);
 
     wire [15:0] sig_asd;
-    async_controllerr async_controller_(
+    async_controller async_controller_(
         .clk(clk),
         .WR(btns),
         .data_write(sig),
