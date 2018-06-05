@@ -16,7 +16,7 @@ module synthesizer(clk, sw, btns, JA, seg, an);
 
     sw_interface sw_interface(clk, sw[5:0], freq);
     debounce play_button(clk, btns, play);
-    display display (freq, seg, an);
+    display display (freq, an, seg);
     osc_square sqwave (freq, JA[2], sig_square);
     osc_tri_saw sawtriwave (freq, JA[2], sig_saw, sig_tri);
     osc_sine sinesc_ (freq, JA[2], sig_sine);

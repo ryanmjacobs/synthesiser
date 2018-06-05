@@ -1,4 +1,3 @@
-`timescale 1ns / 1ps
 module sw_interface(clk, sw, freq);
     input clk;
     input [5:0] sw;

@@ -2,11 +2,8 @@
 module osc_tri_saw(freq, clk, sig_saw, sig_tri);
     input [11:0] freq;
     input clk;  // 1MHz clock
-    output [15:0] sig_saw;
-    output [15:0] sig_tri;
-    
-    reg [15:0] sig_saw;
-    reg [15:0] sig_tri;
+    output reg [15:0] sig_saw;
+    output reg [15:0] sig_tri;
     
     reg [15:0] sig_temp;
     reg [31:0] cycleCount;  // Time in clock cycles
