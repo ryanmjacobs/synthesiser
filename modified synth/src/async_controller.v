@@ -16,7 +16,7 @@ module async_controller(
     // Continually copy MemDB to our data_read
     assign MemDB =
       WR ? data_write :
-        (track_select ? 16'bZZZZZZZZ00000000 : 16b'00000000ZZZZZZZZ);
+        (track_select ? 16'bZZZZZZZZ00000000 : 16'b00000000ZZZZZZZZ);
 
     // Output layered tracks
     always @(posedge clk)

@@ -1,5 +1,5 @@
 module synthesizer(
-    clk, sw, btnd, JA, seg, an,
+    clk, sw, btnd, btnr, JA, seg, an,
 
     // Ram Access passthrough
     MemDB, MemAdr, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB
@@ -32,11 +32,17 @@ module synthesizer(
     osc_sine sinesc_ (freq, JA[2], sig_sine);
     sig_adder sigadd_ (clk, sw[7:6], play, sig_square, sig_saw, sig_tri, sig_sine, sig);
 
+    wire toggle_track;
+    reg track_select = 0;
+    debounce db_(clk, btnr, toggle_track);
+    always @(toggle_track) track_select = ~track_select;
+
     wire [15:0] sig_asd;
     async_controller async_controller_(
         .clk(clk),
         .WR(play),
         .data_write(sig),
+        .track_select(track_select),
 
         .MemDB(MemDB),
         .MemAdr(MemAdr),
@@ -47,6 +53,7 @@ module synthesizer(
         .MemWR(MemWR),
         .RamLB(RamLB),
         .RamUB(RamUB),
+
         .data_read(sig_asd)
     );
 
