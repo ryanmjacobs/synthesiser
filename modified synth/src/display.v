@@ -30,7 +30,7 @@ module display(clk, note, octave, accident, an, seg);
                 4 : seg <= 8'b10010000; // G
                 5 : seg <= 8'b10001000; // A
                 6 : seg <= 8'b10000011; // B
-                default : seg <= 8'b10111111;
+                default : seg <= 8'b10001000;
             endcase
 
             4'b1110 : case (octave)
@@ -48,11 +48,7 @@ module display_pulse(input clk_in, output reg pulse_out);
     reg [18:0] count = 0;
 
     always @(posedge clk_in) begin
-<<<<<<< HEAD
-        if (count >= 262144) begin
-=======
         if (count >= 200000) begin
->>>>>>> 57a582f46d5788c2021a0c4a9c9c7a7f32e25c67
             count <= 0;
             pulse_out <= 1;
         end else begin

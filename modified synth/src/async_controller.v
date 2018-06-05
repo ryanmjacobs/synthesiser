@@ -13,8 +13,8 @@ module async_controller(
     output reg [15:0] data_read
 );
     // Pad our MemAddress with zeroes
-    reg [21:0] addr = 0;
-    assign MemAdr = { {1'b0}, addr };
+    reg [20:0] addr = 0;
+    assign MemAdr = { {2{1'b0}}, addr };
 
     // store tracks 1 and 2
     reg cur_track = 0;
@@ -40,7 +40,11 @@ module async_controller(
     audio_pulse _audio_pulse(clk, ap);
     always @(posedge clk) begin
         if (ap) begin
-            addr <= addr + 1'b1;
+            if (addr >= 2048000)
+                addr <= 0;
+            else
+                addr <= addr + 1'b1;
+                
             cur_track <= ~cur_track;
 
             if (cur_track == 0)
