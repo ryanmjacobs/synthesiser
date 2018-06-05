@@ -2,7 +2,7 @@
 // stereo audio output device
 module pmod_out(sig, clk, MCLK, LRCLK, SCLK, SDIN);
     input [15:0] sig;
-    input clk;      // 500MHz clock
+    input clk;      // 100MHz clock
     output reg MCLK;    // Master clock to send to PmodI2S to maintain
                     // synchronization
     output reg LRCLK;   // Left-right clock stereo audio output

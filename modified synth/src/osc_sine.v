@@ -2,9 +2,8 @@
 module osc_sine(freq, clk, sin);
     input [11:0] freq;
     input clk;          // 1MHz clock
-    output [15:0] sin;  // Signal value
+    output reg [15:0] sin;  // Signal value
     
-    reg [15:0] sin;
     integer sin_curr;
     integer cos_curr;
     integer sin_last;

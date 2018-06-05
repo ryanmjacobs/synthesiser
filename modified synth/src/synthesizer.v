@@ -1,4 +1,9 @@
-module synthesizer(clk, sw, btns, JA, seg, an);
+module synthesizer(
+    clk, sw, btns, JA, seg, an,
+
+    // Ram Access passthrough
+    MemDB, MemAdr, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB
+);
     input clk;          // 100MHz clock
     input [7:0] sw;
     input btns;         // middle button, "play"
@@ -14,9 +19,14 @@ module synthesizer(clk, sw, btns, JA, seg, an);
     wire [11:0] freq;       // Current frequency to 
     wire play;
 
+    // RAM Access passthrough
+    inout  [15:0] MemDB;
+    output [22:0] MemAdr;
+    output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB;
+
     sw_interface sw_interface(clk, sw[5:0], freq);
     debounce play_button(clk, btns, play);
-    display display (freq, seg, an);
+    display display (freq, an, seg);
     osc_square sqwave (freq, JA[2], sig_square);
     osc_tri_saw sawtriwave (freq, JA[2], sig_saw, sig_tri);
     osc_sine sinesc_ (freq, JA[2], sig_sine);

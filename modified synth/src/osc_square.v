@@ -2,9 +2,8 @@
 module osc_square(freq, clk, sig);
     input [11:0] freq;
     input clk;          // 1MHz clock
-    output [15:0] sig;  // Square wave signal
+    output reg [15:0] sig;  // Square wave signal
     
-    reg [15:0] sig;
     reg [31:0] cycleCount;      // Time in clock cycles
     reg [31:0] sigHalfPeriod;
     
