@@ -1,8 +1,11 @@
 module synthesizer(
-    clk, sw, btnd, JA, seg, an,
+    clk, sw, btnd, btnr, btnu, JA, seg, an,
 
     // Ram Access passthrough
-    MemDB, MemAdr, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB
+    MemDB, MemAdr, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
+
+    // indicator lights
+    trackoneind, tracktwoind
 );
     input clk;          // 100MHz clock
     input [7:0] sw;
@@ -10,8 +13,9 @@ module synthesizer(
     input btnr;         // right button, "cycle track"
     input btnu;         // top button, "play track"
     inout [3:0] JA;     // pmodi2s module
-    output [6:0] seg;   // 7 seg display
+    output [7:0] seg;   // 7 seg display
     output [3:0] an;    // panel selector
+	 output trackoneind, tracktwoind;
     
     wire [15:0] sig_square; // Square wave
     wire [15:0] sig_saw;    // Sawtooth wave
@@ -20,6 +24,9 @@ module synthesizer(
     wire [15:0] sig;        // Total audio output signal
     wire [11:0] freq;       // Current frequency to 
     wire play, cycle, playtrack;
+    wire [2:0] note;
+    wire [1:0] octave;
+    wire accident;
 
     // RAM Access passthrough
     inout  [15:0] MemDB;
@@ -27,19 +34,22 @@ module synthesizer(
     output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB;
 
     // interface
-    sw_interface sw_interface(clk, sw[5:0], freq);
+    sw_interface sw_interface(clk, sw[5:0], freq, note, octave, accident);
     debounce play_button(clk, btnd, play);
     debounce cycle_button(clk, btnr, cycle);
     debounce playtr_button(clk, btnu, playtrack);
 
-    display display (freq, an, seg);
+    display display (clk, note, octave, accident, an, seg);
     osc_square sqwave (freq, JA[2], sig_square);
     osc_tri_saw sawtriwave (freq, JA[2], sig_saw, sig_tri);
     osc_sine sinesc_ (freq, JA[2], sig_sine);
     sig_adder sigadd_ (clk, sw[7:6], play, sig_square, sig_saw, sig_tri, sig_sine, sig);
 
     wire [15:0] sig_asd;
-    track_controller track_controller(clk, cycle, playtrack, current_track, tracks_playing);
+	wire [1:0] tracks_playing;
+	wire current_track;
+	 
+    track_controller track_controller(clk, cycle, playtrack, current_track, tracks_playing, trackoneind, tracktwoind);
     async_controller async_controller_(
         .clk(clk),
         .WR(play),

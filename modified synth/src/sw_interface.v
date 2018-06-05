@@ -1,7 +1,10 @@
-module sw_interface(clk, sw, freq);
+module sw_interface(clk, sw, freq, note, octave, accident);
     input clk;
     input [5:0] sw;
     output reg [11:0] freq;
+    output [2:0] note;
+    output [1:0] octave;
+    output accident;
 
     integer C4 = 261;
     integer D4 = 293;
@@ -15,7 +18,11 @@ module sw_interface(clk, sw, freq);
     integer Fs4 = 330;
     integer Gs4 = 370;
     integer As4 = 466;
-    
+
+    assign note = sw[2:0];
+    assign octave = sw[5:4];
+    assign accident = sw[3];
+
     initial begin
         freq <= A4; 
     end
