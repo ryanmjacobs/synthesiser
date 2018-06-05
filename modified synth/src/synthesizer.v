@@ -1,5 +1,5 @@
 module synthesizer(
-    clk, sw, btns, JA, seg, an,
+    clk, sw, btnd, JA, seg, an,
 
     // Ram Access passthrough
     MemDB, MemAdr, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB
