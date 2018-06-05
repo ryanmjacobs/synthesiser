@@ -6,7 +6,7 @@ module synthesizer(
 );
     input clk;          // 100MHz clock
     input [7:0] sw;
-    input btns;         // middle button, "play"
+    input btnd;         // middle button, "play"
     inout [3:0] JA;     // pmodi2s module
     output [6:0] seg;   // 7 seg display
     output [3:0] an;    // panel selector
@@ -25,7 +25,7 @@ module synthesizer(
     output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB;
 
     sw_interface sw_interface(clk, sw[5:0], freq);
-    debounce play_button(clk, btns, play);
+    debounce play_button(clk, btnd, play);
     display display (freq, an, seg);
     osc_square sqwave (freq, JA[2], sig_square);
     osc_tri_saw sawtriwave (freq, JA[2], sig_saw, sig_tri);
@@ -35,7 +35,7 @@ module synthesizer(
     wire [15:0] sig_asd;
     async_controller async_controller_(
         .clk(clk),
-        .WR(btns),
+        .WR(play),
         .data_write(sig),
 
         .MemDB(MemDB),
