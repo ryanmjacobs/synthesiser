@@ -15,9 +15,7 @@ module display(clk, freq, an, seg);
             digit <= digit + 1'b1;
             an <= ~(1 << digit);
         end
-    end
-    
-    always @(freq) begin
+
         case (digit)
             0 : seg <= 7'b1000011;
             1 : seg <= 7'b1001100;
