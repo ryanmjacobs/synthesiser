@@ -33,13 +33,10 @@ endmodule
 
 // Generates a pulse at a rate of 31.5 KHz for the audio loop
 module audio_pulse(input clk_in, output reg pulse_out);
-  //reg [11:0] count = 0;
-    reg [26:0] count = 0;
+    reg [11:0] count = 0;
 
-    // TMP: 1hz pulse
     always @(posedge clk_in) begin
-      //if (count >= 3200) begin
-        if (count >= 10_000_000) begin
+        if (count >= 3200) begin
             count <= 0;
             pulse_out <= 1;
         end else begin
