@@ -27,6 +27,8 @@ module async_controller(
     assign MemDB = write ? data_write : 16'bZ;
 
     always @(posedge clk) begin
+        // read track data only if it's our every other turn
+        // (sorry, I worded that badly, but I'm tired)
         if (cur_track == 0)
             track1 = (tracks_playing & 2'b01) ? MemDB : 16'b0;
         else
