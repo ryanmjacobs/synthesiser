@@ -1,22 +1,36 @@
 `timescale 1ns / 100ps
 module async_controller(
     input clk, WR,
-    input  [15:0] data_write,
+    input [15:0] data_write,
+
+    // track input realtime config
+    input track_writing,
+    input [1:0] tracks_playing,
 
     inout  [15:0] MemDB,
     output [22:0] MemAdr,
     output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
     output reg [15:0] data_read
 );
-    
     // Pad our MemAddress with zeroes
-    reg [20:0] addr = 0;
-    assign MemAdr = { { 2{1'b0} }, addr };
+    reg [21:0] addr = 0;
+    assign MemAdr = { {1'b0}, addr };
+
+    // store tracks 1 and 2
+    reg cur_track = 0;
+    reg [15:0] track1 = 0;
+    reg [15:0] track2 = 0;
     
     // Continually copy MemDB to our data_read
-    assign MemDB = WR ? data_write : 16'bZ;
+    wire write;
+    assign write = (WR && (track_writing == cur_track));
+    assign MemDB = write ? data_write : 16'bZ;
+
     always @(posedge clk) begin
-        data_read = MemDB;
+        if (cur_track == 0)
+            track1 = (tracks_playing & 2'b01) ? MemDB : 16'b0;
+        else
+            track2 = (tracks_playing & 2'b10) ? MemDB : 16'b0;
     end
     
     // advance audio slices at ~32khz
@@ -25,18 +39,23 @@ module async_controller(
     always @(posedge clk) begin
         if (ap) begin
             addr <= addr + 1'b1;
+            cur_track <= ~cur_track;
+
+            if (cur_track == 0)
+                data_read <= track1 + track2;
         end
     end
     
     async_fsm async(clk, WR, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB);
 endmodule
 
-// Generates a pulse at a rate of 31.5 KHz for the audio loop
+// Generates a pulse at a rate of ~62KHz for the audio loop
+// (two tracks)
 module audio_pulse(input clk_in, output reg pulse_out);
     reg [7:0] count = 0;
 
     always @(posedge clk_in) begin
-        if (count >= 200) begin
+        if (count >= 100) begin
             count <= 0;
             pulse_out <= 1;
         end else begin
