@@ -1,7 +1,7 @@
 `timescale 1ns / 100ps
 module async_controller(
     input clk, WR,
-    input  [7:0]  data_write,
+    input  [15:0] data_write,
     inout  [15:0] MemDB,
 
     output [22:0] MemAdr,
@@ -14,7 +14,7 @@ module async_controller(
     assign MemAdr = { { 19{1'b0} }, addr };
     
     // Continually copy MemDB to our data_read
-    assign MemDB = WR ? {data_write, data_write} : 16'bZ;
+    assign MemDB = WR ? data_write : 16'bZ;
     always @(posedge clk) begin
         data_read = MemDB;
     end
