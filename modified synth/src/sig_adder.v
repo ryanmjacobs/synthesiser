@@ -28,9 +28,9 @@ module sig_adder(clk, sw, btn, sig_square, sig_saw, sig_tri, sig_sine, sig_mem, 
         sig_temp = 0;
         if (btn) begin
             if (sw[7:6] == 0) begin
-                sig_temp = sig_temp + sig_square + sig_saw;
+                sig_temp = sig_temp + sig_tri + sig_sine;
             end //else if (sw[7:6] == 1) begin
-                //sig_temp = sig_temp + sig_tri + sig_sine;
+                //sig_temp = sig_temp + sig_square + sig_saw;
             //end
         end
         // Generates random noise

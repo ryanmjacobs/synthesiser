@@ -19,7 +19,7 @@ module osc_tri_saw(freq, clk, sig_saw, sig_tri);
         sig_temp <= 16'b0000000000000000;
         cycleCount <= 0;
         sigPeriod <= 1000000 / 440;
-        amplitude <= 16'b0001111111111111;
+        amplitude <= 16'b0000111111111111;
     end
     
     // Sawtooth wave equation:

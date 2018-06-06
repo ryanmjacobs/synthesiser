@@ -12,7 +12,7 @@ module osc_sine(freq, clk, sin);
     
     initial begin
         sin_last <= 0;
-        cos_last <= 32'b00111111111111110000000000000000;
+        cos_last <= 32'b00011111111111110000000000000000;
         denom = 159154 / 440;
     end
     
@@ -43,7 +43,7 @@ module osc_sine(freq, clk, sin);
         // Reinitialize values at the beginning of every period
         if (sin_curr[31] == 0 && sin_last[31] == 1) begin
             sin_last = 0;
-            cos_last = 32'b00111111111111110000000000000000;
+            cos_last = 32'b00011111111111110000000000000000;
             denom = 159154 / freq;
         end
         // Update sin(t-1) and cos(t-1) before subsequent sine wave calculation

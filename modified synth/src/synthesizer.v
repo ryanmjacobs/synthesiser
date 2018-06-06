@@ -1,5 +1,5 @@
 module synthesizer(
-    clk, sw, btnl, btnd, btnr, btnu, JA, seg, an,
+    clk, sw, btnl, btnd, btnr, btnu, JA, seg, an, led,
 
     // Ram Access passthrough
     MemDB, MemAdr, RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB
@@ -13,7 +13,13 @@ module synthesizer(
     inout [3:0] JA;     // pmodi2s module
     output [7:0] seg;   // 7 seg display
     output [3:0] an;    // panel selector
-    
+    output [7:0] led;
+
+    // RAM Access passthrough
+    inout  [15:0] MemDB;
+    output [22:0] MemAdr;
+    output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB;
+
     wire [15:0] sig_square; // Square wave
     wire [15:0] sig_saw;    // Sawtooth wave
     wire [15:0] sig_tri;    // Triangle wave
@@ -27,11 +33,6 @@ module synthesizer(
     wire [1:0] tracks_playing;
 	wire current_track;
     wire [15:0] sig_mem;
-
-    // RAM Access passthrough
-    inout  [15:0] MemDB;
-    output [22:0] MemAdr;
-    output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB;
 
     // interface
     sw_interface sw_interface(clk, sw[5:0], freq, note, octave, accident);
@@ -54,6 +55,7 @@ module synthesizer(
         
         .track_writing(current_track),
         .tracks_playing(tracks_playing),
+        .led(led),
 
         .MemDB(MemDB),
         .MemAdr(MemAdr),

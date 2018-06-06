@@ -9,7 +9,7 @@ module osc_square(freq, clk, sig);
     
     initial begin
         // Initialize signal at default positive maginitude
-        sig <= 16'b0000111111111111;
+        sig <= 16'b0000011111111111;
         cycleCount <= 0;
         // Initialize the half-period of the waveform to correspond to a
         // frequency of 440Hz
