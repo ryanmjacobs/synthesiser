@@ -1,7 +1,9 @@
 // Module which displays the current note being played to the
 // 7-segment display
-module display(clk, note, octave, accident, an, seg);
+module display(clk, note, track_playing, current_track, octave, accident, an, seg);
     input clk;
+    input [1:0] track_playing;
+    input current_track;
     input [2:0] note;
     input [1:0] octave;
     input accident;
@@ -20,8 +22,13 @@ module display(clk, note, octave, accident, an, seg);
         end
 
         case (an)
-            4'b0111 : seg <= 8'b11000011;
-            4'b1011 : seg <= 8'b11001100;
+            4'b0111 : case (current_track)
+                0: seg <= {~track_playing[0], 7'b1111001};
+                1: seg <= {~track_playing[1], 7'b0100100};
+            endcase
+
+            4'b1011 : seg <= 8'b11111111;
+
             4'b1101 : case (note)
                 0 : seg <= 8'b11000110; // C
                 1 : seg <= 8'b10100001; // D

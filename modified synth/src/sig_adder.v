@@ -1,7 +1,7 @@
 // Module which accumulates the waveforms chosen by the nexys 3 switches
 // into the total output signal
 // Allows user to play multiple types of waveforms simultaneously
-module sig_adder(clk, sw, btn, sig_square, sig_saw, sig_tri, sig_sine, sig);
+module sig_adder(clk, sw, btn, sig_square, sig_saw, sig_tri, sig_sine, sig_mem, sig);
     input clk;                  // 1MHz clock
     input [7:6] sw;             // Switches on FPGA
     input btn;
@@ -9,6 +9,8 @@ module sig_adder(clk, sw, btn, sig_square, sig_saw, sig_tri, sig_sine, sig);
     input [15:0] sig_saw;
     input [15:0] sig_tri;
     input [15:0] sig_sine;
+    input [15:0] sig_mem;
+
     output reg [15:0] sig;      // Total output signal
     
     reg [15:0] sig_temp;
@@ -27,9 +29,9 @@ module sig_adder(clk, sw, btn, sig_square, sig_saw, sig_tri, sig_sine, sig);
         if (btn) begin
             if (sw[7:6] == 0) begin
                 sig_temp = sig_temp + sig_square + sig_saw;
-            end else if (sw[7:6] == 1) begin
-                sig_temp = sig_temp + sig_tri + sig_sine;
-            end
+            end //else if (sw[7:6] == 1) begin
+                //sig_temp = sig_temp + sig_tri + sig_sine;
+            //end
         end
         // Generates random noise
         /*
@@ -38,7 +40,7 @@ module sig_adder(clk, sw, btn, sig_square, sig_saw, sig_tri, sig_sine, sig);
             sig_temp = sig_temp + sig_noise;
         end*/
         
-        sig = sig_temp;
+        sig = sig_temp + sig_mem;
     end
 
 endmodule

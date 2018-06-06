@@ -10,7 +10,7 @@ module async_controller(
     inout  [15:0] MemDB,
     output [22:0] MemAdr,
     output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB,
-    output reg [15:0] data_read
+    output reg [15:0] data_read = 0
 );
     // Pad our MemAddress with zeroes
     reg [20:0] addr = 0;
@@ -23,9 +23,17 @@ module async_controller(
     
     // Continually copy MemDB to our data_read
     wire write;
-    assign write = (WR && (track_writing == cur_track));
+    reg WRen = 0;
+    
+    always @(posedge clk) begin
+        if (WR)
+            WRen <= ~WRen;
+    end
+    
+    assign write = (WRen && (cur_track == track_writing));
     assign MemDB = write ? data_write : 16'bZ;
-
+ 
+    
     always @(posedge clk) begin
         // read track data only if it's our every other turn
         // (sorry, I worded that badly, but I'm tired)
@@ -34,6 +42,7 @@ module async_controller(
         else
             track2 = (tracks_playing & 2'b10) ? MemDB : 16'b0;
     end
+    
     
     // advance audio slices at ~32khz
     wire ap;
@@ -44,11 +53,11 @@ module async_controller(
                 addr <= 0;
             else
                 addr <= addr + 1'b1;
-                
+
             cur_track <= ~cur_track;
 
             if (cur_track == 0)
-                data_read <= track1 + track2;
+             data_read <= track1 + track2;
         end
     end
     
@@ -61,7 +70,7 @@ module audio_pulse(input clk_in, output reg pulse_out);
     reg [7:0] count = 0;
 
     always @(posedge clk_in) begin
-        if (count >= 100) begin
+        if (count >= 200) begin
             count <= 0;
             pulse_out <= 1;
         end else begin

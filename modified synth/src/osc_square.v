@@ -26,12 +26,6 @@ module osc_square(freq, clk, sig);
         else begin
             cycleCount <= cycleCount + 1;
         end
-    end
-    
-    // Recalculate the period whenever the user changes the frequency to play
-    always @(freq)
-    begin
         sigHalfPeriod = 1000000 / (freq * 2);
     end
-    
 endmodule
