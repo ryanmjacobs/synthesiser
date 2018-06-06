@@ -20,10 +20,10 @@ module synthesizer(
     output [22:0] MemAdr;
     output RamAdv, RamClk, RamCS, MemOE, MemWR, RamLB, RamUB;
 
-    wire [15:0] sig_square; // Square wave
-    wire [15:0] sig_saw;    // Sawtooth wave
-    wire [15:0] sig_tri;    // Triangle wave
-    wire [15:0] sig_sine;   // Sine wave
+    wire [15:0] sq_wave; // Square wave
+    wire [15:0] saw_wave;    // Sawtooth wave
+    wire [15:0] tri_wave;    // Triangle wave
+    wire [15:0] sin_wave;   // Sine wave
     wire [15:0] sig;        // Total audio output signal
     wire [11:0] freq;       // Current frequency to 
     wire play, cycle, playtrack, record;
@@ -42,10 +42,10 @@ module synthesizer(
     debounce record_button(clk, btnl, record);
 
     display display (clk, note, tracks_playing, current_track, octave, accident, an, seg);
-    osc_square sqwave (freq, JA[2], sig_square);
-    osc_tri_saw sawtriwave (freq, JA[2], sig_saw, sig_tri);
-    osc_sine sinesc_ (freq, JA[2], sig_sine);
-    sig_adder sigadd_ (clk, sw[7:6], play, sig_square, sig_saw, sig_tri, sig_sine, sig_mem, sig);
+    sq_gen sq_gen (freq, JA[2], sq_wave);
+    tri_saw_gen tri_saw_gen (freq, JA[2], saw_wave, tri_wave);
+    sine_gen sine_gen (freq, JA[2], sin_wave);
+    sig_adder sig_adder (clk, sw[7:6], play, sq_wave, saw_wave, tri_wave, sin_wave, sig_mem, sig);
 	 
     track_controller track_controller(clk, cycle, playtrack, current_track, tracks_playing);
     async_controller async_controller_(

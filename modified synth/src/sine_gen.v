@@ -1,7 +1,7 @@
 // Module for generating a sine wave
-module osc_sine(freq, clk, sin);
+module sine_gen(freq, clk, sin);
     input [11:0] freq;
-    input clk;          // 1MHz clock
+    input clk;          
     output reg [15:0] sin;  // Signal value
     
     integer sin_curr;
@@ -16,21 +16,8 @@ module osc_sine(freq, clk, sin);
         denom = 159154 / 440;
     end
     
-    // Sine wave generation accomplished using a phase-locked loop
-    // given by the following equations:
-    // sin(t) = sin(t-1) + C*cos(t-1)
-    // cos(t) = cos(t-1) - C*sin(t-1)
-    // where:
-    // sin(t) given by variable sin_curr
-    // sin(t-1) given by variable sin_last
-    // cos(t) given by variable cos_curr
-    // cos(t-1) given by variable cos_last
-    // C is a constant given by the reciprocal of the variable denom
-    // variable denom is dependent on the input frequency given by the user
-    // sin_last and cos_last are initialized to their respective t=0 values
-    // left shifted by 16 bits. Left shifting is done in order to gain
-    // the required precision for calculation.
-    
+    // PLL used to generate sin waves
+
     always @(posedge clk)
     begin
         sin_curr = (cos_last / denom);
