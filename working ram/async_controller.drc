@@ -1,8 +1,0 @@
-Release 14.7 Drc P.20160913 (lin64)
-Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
-
-Tue Jun  5 08:38:34 2018
-
-drc -z async_controller.ncd async_controller.pcf
-
-DRC detected 0 errors and 0 warnings.
